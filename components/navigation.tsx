@@ -1,0 +1,119 @@
+'use client'
+
+import Link from 'next/link'
+import { useState, useEffect } from 'react'
+import { Menu, X } from 'lucide-react'
+import { motion, AnimatePresence } from 'framer-motion'
+
+export function Navigation() {
+  const [isOpen, setIsOpen] = useState(false)
+  const [scrolled, setScrolled] = useState(false)
+
+  useEffect(() => {
+    const handleScroll = () => {
+      setScrolled(window.scrollY > 50)
+    }
+    window.addEventListener('scroll', handleScroll)
+    return () => window.removeEventListener('scroll', handleScroll)
+  }, [])
+
+  const mainLinks = [
+    { label: 'Home', href: '/' },
+    { label: 'About', href: '/about' },
+    { label: 'Experiences', href: '/experiences' },
+    { label: 'Contact', href: '/#contact' },
+  ]
+
+  return (
+    <nav
+      className={`fixed top-0 w-full z-50 transition-all duration-500 ${
+        scrolled
+          ? 'bg-white shadow-lg border-b border-border'
+          : 'bg-white'
+      }`}
+    >
+      <div className="max-w-7xl mx-auto px-6 sm:px-8 lg:px-10">
+        <div className="flex justify-between items-center h-20 lg:h-24">
+          {/* Logo */}
+          <Link href="/" className="flex items-center gap-2 group flex-shrink-0">
+            <div className="w-10 h-10 bg-secondary rounded-sm flex items-center justify-center group-hover:scale-110 transition-transform">
+              <span className="text-white font-serif font-bold text-xl">S</span>
+            </div>
+            <div className="hidden sm:block">
+              <div className="font-serif font-bold text-base text-foreground">Samburu</div>
+              <div className="text-xs text-secondary font-light">Tempo</div>
+            </div>
+          </Link>
+
+          {/* Desktop Navigation - Clean and Minimal */}
+          <div className="hidden lg:flex items-center gap-12">
+            {mainLinks.map((link) => (
+              <Link
+                key={link.href}
+                href={link.href}
+                className={`text-sm font-medium transition-colors duration-300 ${
+                  scrolled ? 'text-foreground/70 hover:text-secondary' : 'text-foreground/70 hover:text-secondary'
+                }`}
+              >
+                {link.label}
+              </Link>
+            ))}
+          </div>
+
+          {/* Right Side - CTA Button */}
+          <div className="hidden lg:flex items-center gap-6">
+            <Link
+              href="/#contact"
+              className="px-6 py-2.5 bg-secondary text-foreground text-sm font-semibold hover:shadow-lg transition-all duration-300"
+            >
+              Reserve
+            </Link>
+          </div>
+
+          {/* Mobile Menu Button */}
+          <button
+            onClick={() => setIsOpen(!isOpen)}
+            className="lg:hidden p-2"
+            aria-label="Toggle menu"
+          >
+            {isOpen ? <X size={24} /> : <Menu size={24} />}
+          </button>
+        </div>
+      </div>
+
+      {/* Mobile Menu - Clean and Simple */}
+      <AnimatePresence>
+        {isOpen && (
+          <motion.div
+            initial={{ opacity: 0, height: 0 }}
+            animate={{ opacity: 1, height: 'auto' }}
+            exit={{ opacity: 0, height: 0 }}
+            transition={{ duration: 0.2 }}
+            className="lg:hidden border-t border-border bg-white"
+          >
+            <div className="max-w-7xl mx-auto px-6 py-6 space-y-3">
+              {mainLinks.map((link) => (
+                <Link
+                  key={link.href}
+                  href={link.href}
+                  className="block py-3 text-foreground/70 hover:text-secondary transition-colors text-sm font-medium"
+                  onClick={() => setIsOpen(false)}
+                >
+                  {link.label}
+                </Link>
+              ))}
+              <div className="h-px bg-border my-4" />
+              <Link
+                href="/#contact"
+                className="block w-full py-3 bg-secondary text-foreground text-center text-sm font-semibold hover:shadow-lg transition-all"
+                onClick={() => setIsOpen(false)}
+              >
+                Reserve Now
+              </Link>
+            </div>
+          </motion.div>
+        )}
+      </AnimatePresence>
+    </nav>
+  )
+}
