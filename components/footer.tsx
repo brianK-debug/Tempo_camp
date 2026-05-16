@@ -67,23 +67,23 @@ export function Footer() {
           </div>
 
           {/* Footer link columns */}
-          {Object.entries(footerLinks).map(([title, links]) => (
-            <div key={title}>
-              <h4 className="font-serif font-semibold text-lg text-background mb-6">{title}</h4>
-              <ul className="space-y-3">
-                {links.map((link) => (
-                  <li key={link.href}>
-                    <Link
-                      href={link.href}
-                      className="text-background/70 hover:text-secondary transition-colors text-sm font-light"
-                    >
-                      {link.label}
-                    </Link>
-                  </li>
-                ))}
-              </ul>
-            </div>
-          ))}
+{Object.entries(footerLinks).map(([title, links]) => (
+             <div key={title}>
+               <h4 className="font-serif font-semibold text-lg text-background mb-6">{title}</h4>
+               <ul className="space-y-3">
+                 {links.map((link) => (
+                   <li key={`${title}-${link.label}`}>
+                     <Link
+                       href={link.href}
+                       className="text-background/70 hover:text-secondary transition-colors text-sm font-light"
+                     >
+                       {link.label}
+                     </Link>
+                   </li>
+                 ))}
+               </ul>
+             </div>
+           ))}
         </div>
 
         {/* Divider */}

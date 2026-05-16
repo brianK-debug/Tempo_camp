@@ -71,25 +71,25 @@ export default function AboutPage() {
 
           {/* Core Values */}
           <div className="grid md:grid-cols-3 gap-12">
-            {[
-              {
-                title: 'Authenticity',
-                description: 'Genuine experiences that honor the land and its people. No shortcuts, no pretense.',
-              },
-              {
-                title: 'Sustainability',
-                description: 'Operating with respect for nature. Carbon-neutral operations, conservation initiatives, and regenerative practices.',
-              },
-              {
-                title: 'Community First',
-                description: 'Direct investment in local livelihoods. 30% of profits support education, health, and economic opportunities.',
-              },
-            ].map((value, i) => (
-              <div key={i} className="bg-white p-8 border border-border">
-                <h3 className="text-2xl font-serif font-bold text-foreground mb-3">{value.title}</h3>
-                <p className="text-foreground/75">{value.description}</p>
-              </div>
-            ))}
+{[
+               {
+                 title: 'Authenticity',
+                 description: 'Genuine experiences that honor the land and its people. No shortcuts, no pretense.',
+               },
+               {
+                 title: 'Sustainability',
+                 description: 'Operating with respect for nature. Carbon-neutral operations, conservation initiatives, and regenerative practices.',
+               },
+               {
+                 title: 'Community First',
+                 description: 'Direct investment in local livelihoods. 30% of profits support education, health, and economic opportunities.',
+               },
+             ].map((value) => (
+               <div key={value.title} className="bg-white p-8 border border-border">
+                 <h3 className="text-2xl font-serif font-bold text-foreground mb-3">{value.title}</h3>
+                 <p className="text-foreground/75">{value.description}</p>
+               </div>
+             ))}
           </div>
         </div>
       </section>
@@ -102,22 +102,22 @@ export default function AboutPage() {
           </h2>
           
           <div className="space-y-12 max-w-3xl mx-auto">
-            {[
-              { year: '2015', event: 'Samburu Tempo Camp founded with a vision of sustainable luxury' },
-              { year: '2017', event: 'Launched Tembo Kids Initiative for youth conservation education' },
-              { year: '2019', event: 'Achieved carbon-neutral operations status' },
-              { year: '2022', event: 'Expanded conservation projects, planted 50,000 trees' },
-              { year: '2024', event: 'Recognized as leading eco-tourism destination in East Africa' },
-            ].map((milestone, i) => (
-              <div key={i} className="flex gap-8">
-                <div className="flex-shrink-0">
-                  <div className="w-24 font-serif font-bold text-2xl text-secondary">{milestone.year}</div>
-                </div>
-                <div className="flex-grow pt-2 pb-12 border-l-2 border-secondary pl-8">
-                  <p className="text-lg text-foreground/75 font-light">{milestone.event}</p>
-                </div>
-              </div>
-            ))}
+{[
+               { year: '2015', event: 'Samburu Tempo Camp founded with a vision of sustainable luxury' },
+               { year: '2017', event: 'Launched Tembo Kids Initiative for youth conservation education' },
+               { year: '2019', event: 'Achieved carbon-neutral operations status' },
+               { year: '2022', event: 'Expanded conservation projects, planted 50,000 trees' },
+               { year: '2024', event: 'Recognized as leading eco-tourism destination in East Africa' },
+             ].map((milestone) => (
+               <div key={milestone.year} className="flex gap-8">
+                 <div className="flex-shrink-0">
+                   <div className="w-24 font-serif font-bold text-2xl text-secondary">{milestone.year}</div>
+                 </div>
+                 <div className="flex-grow pt-2 pb-12 border-l-2 border-secondary pl-8">
+                   <p className="text-lg text-foreground/75 font-light">{milestone.event}</p>
+                 </div>
+               </div>
+             ))}
           </div>
         </div>
       </section>
@@ -134,17 +134,17 @@ export default function AboutPage() {
           </p>
 
           <div className="grid md:grid-cols-3 gap-12">
-            {[
-              { role: 'Expert Guides', count: '25+', description: 'Professional naturalists with deep knowledge' },
-              { role: 'Hospitality Staff', count: '50+', description: 'Dedicated team ensuring your comfort' },
-              { role: 'Local Community Members', count: '40+', description: 'Samburu partners supporting operations' },
-            ].map((team, i) => (
-              <div key={i} className="text-center">
-                <div className="text-4xl font-serif font-bold text-secondary mb-2">{team.count}</div>
-                <h4 className="text-xl font-bold text-foreground mb-2">{team.role}</h4>
-                <p className="text-foreground/75 font-light">{team.description}</p>
-              </div>
-            ))}
+{[
+               { role: 'Expert Guides', count: '25+', description: 'Professional naturalists with deep knowledge' },
+               { role: 'Hospitality Staff', count: '50+', description: 'Dedicated team ensuring your comfort' },
+               { role: 'Local Community Members', count: '40+', description: 'Samburu partners supporting operations' },
+             ].map((team) => (
+               <div key={team.role} className="text-center">
+                 <div className="text-4xl font-serif font-bold text-secondary mb-2">{team.count}</div>
+                 <h4 className="text-xl font-bold text-foreground mb-2">{team.role}</h4>
+                 <p className="text-foreground/75 font-light">{team.description}</p>
+               </div>
+             ))}
           </div>
         </div>
       </section>

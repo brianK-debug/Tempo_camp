@@ -165,13 +165,13 @@ export function WildlifeContent() {
                     <p className="text-foreground/75"><span className="font-semibold">Non-Resident:</span> {activity.nonResident}</p>
                   </div>
                 )}
-                {activity.items && (
-                  <ul className="mt-2 space-y-1">
-                    {activity.items.map((item, idx) => (
-                      <li key={idx} className="text-sm text-foreground/75">• {item}</li>
-                    ))}
-                  </ul>
-                )}
+{activity.items && (
+                   <ul className="mt-2 space-y-1">
+                     {activity.items.map((item) => (
+                       <li key={item} className="text-sm text-foreground/75">• {item}</li>
+                     ))}
+                   </ul>
+                 )}
               </motion.div>
             ))}
           </div>

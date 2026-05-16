@@ -59,12 +59,12 @@ export default function GroupPage() {
             Group Packages
           </h2>
           <div className="grid md:grid-cols-3 gap-8">
-            {packages.map((pkg, i) => (
+            {packages.map((pkg) => (
               <motion.div
                 key={pkg.name}
                 initial={{ opacity: 0, y: 20 }}
                 whileInView={{ opacity: 1, y: 0 }}
-                transition={{ delay: i * 0.1 }}
+                transition={{ delay: packages.indexOf(pkg) * 0.1 }}
                 className={`rounded-lg p-8 border-2 ${
                   pkg.featured
                     ? 'border-secondary bg-white shadow-xl'

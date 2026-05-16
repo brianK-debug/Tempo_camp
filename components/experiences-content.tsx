@@ -122,21 +122,21 @@ export function ExperiencesContent() {
           </h2>
           
           <div className="grid md:grid-cols-4 gap-8">
-            {[
-              { title: 'Expert Guides', description: 'Professional naturalists with deep knowledge of wildlife and culture' },
-              { title: 'Luxury Facilities', description: 'World-class amenities combined with sustainable practices' },
-              { title: 'Safety First', description: 'Rigorous protocols ensuring guest safety and wildlife protection' },
-              { title: 'Community Impact', description: '30% of profits support local education and development' },
-            ].map((feature, i) => (
-              <div key={i} className="text-center">
-                <h4 className="text-xl font-serif font-bold text-foreground mb-3">
-                  {feature.title}
-                </h4>
-                <p className="text-foreground/75 font-light">
-                  {feature.description}
-                </p>
-              </div>
-            ))}
+{[
+               { title: 'Expert Guides', description: 'Professional naturalists with deep knowledge of wildlife and culture' },
+               { title: 'Luxury Facilities', description: 'World-class amenities combined with sustainable practices' },
+               { title: 'Safety First', description: 'Rigorous protocols ensuring guest safety and wildlife protection' },
+               { title: 'Community Impact', description: '30% of profits support local education and development' },
+             ].map((feature) => (
+               <div key={feature.title} className="text-center">
+                 <h4 className="text-xl font-serif font-bold text-foreground mb-3">
+                   {feature.title}
+                 </h4>
+                 <p className="text-foreground/75 font-light">
+                   {feature.description}
+                 </p>
+               </div>
+             ))}
           </div>
         </div>
       </section>

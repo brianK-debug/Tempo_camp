@@ -66,12 +66,12 @@ export default function RecreationPage() {
             Recreation Activities
           </h2>
           <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
-            {activities.map((activity, i) => (
+            {activities.map((activity) => (
               <motion.div
                 key={activity.title}
                 initial={{ opacity: 0, y: 20 }}
                 whileInView={{ opacity: 1, y: 0 }}
-                transition={{ delay: i * 0.1 }}
+                transition={{ delay: activities.indexOf(activity) * 0.1 }}
                 className="bg-white rounded-lg overflow-hidden border border-border"
               >
                 <div className="relative h-48">

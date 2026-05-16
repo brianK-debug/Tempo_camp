@@ -158,12 +158,12 @@ export function RoomsSection() {
                 </div>
 
                 <div className="space-y-4 mb-8">
-                  {room.features.map((feature, fidx) => (
+                  {room.features.map((feature) => (
                     <motion.div
-                      key={fidx}
+                      key={feature}
                       initial={{ opacity: 0, x: -10 }}
                       animate={isInView ? { opacity: 1, x: 0 } : { opacity: 0, x: -10 }}
-                      transition={{ duration: 0.5, delay: 0.3 + fidx * 0.1 }}
+                      transition={{ duration: 0.5, delay: 0.3 + feature * 0.1 }}
                       className="flex items-center gap-3"
                     >
                       <Check className={`w-5 h-5 flex-shrink-0 ${
