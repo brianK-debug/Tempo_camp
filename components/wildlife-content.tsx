@@ -32,6 +32,51 @@ export function WildlifeContent() {
     },
   ]
 
+  const activities = [
+    {
+      title: 'Game Drive',
+      description: 'Samburu, Buffalo Springs & Shaba National Reserve',
+    },
+    {
+      title: 'Park Entry Fees',
+      resident: 'Ksh 1,600 per person',
+      nonResident: 'USD 85 per person',
+    },
+    {
+      title: 'Nature Walk',
+      description: 'Free',
+    },
+    {
+      title: 'Cultural Village Visit',
+      description: 'Ksh 2,000 per person',
+    },
+    {
+      title: 'Samburu Dance',
+      description: 'Ksh 10,000 per dance',
+    },
+    {
+      title: 'Mt. Ololokwe Hiking',
+      items: [
+        'Hiking Fee: Ksh 2,000 per person',
+        'Conservation Fee: Ksh 3,000 per person per night',
+        'Guide Fee: Ksh 3,000 per day',
+      ],
+    },
+    {
+      title: 'Reteti Elephant Sanctuary',
+      resident: 'USD 3 per person',
+      nonResident: 'USD 35 per person',
+    },
+    {
+      title: 'Camping',
+      description: 'USD 10 per person',
+    },
+    {
+      title: 'Vehicle Hire (Safari Land Cruiser)',
+      description: 'USD 200 full day',
+    },
+  ]
+
   return (
     <>
       {/* Hero */}
@@ -89,6 +134,44 @@ export function WildlifeContent() {
                     ))}
                   </ul>
                 </div>
+              </motion.div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* Activities & Rates */}
+      <section className="py-24 md:py-40 bg-white">
+        <div className="max-w-7xl mx-auto px-6 md:px-12">
+          <h2 className="text-4xl md:text-5xl font-serif font-bold text-foreground mb-16">
+            Other Activities
+          </h2>
+          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+            {activities.map((activity, i) => (
+              <motion.div
+                key={activity.title}
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                transition={{ delay: i * 0.1 }}
+                className="bg-background p-6 rounded-lg border border-border"
+              >
+                <h3 className="text-xl font-serif font-bold text-foreground mb-3">{activity.title}</h3>
+                {activity.description && (
+                  <p className="text-foreground/75">{activity.description}</p>
+                )}
+                {activity.resident && (
+                  <div className="mt-2">
+                    <p className="text-foreground/75"><span className="font-semibold">Resident:</span> {activity.resident}</p>
+                    <p className="text-foreground/75"><span className="font-semibold">Non-Resident:</span> {activity.nonResident}</p>
+                  </div>
+                )}
+                {activity.items && (
+                  <ul className="mt-2 space-y-1">
+                    {activity.items.map((item, idx) => (
+                      <li key={idx} className="text-sm text-foreground/75">• {item}</li>
+                    ))}
+                  </ul>
+                )}
               </motion.div>
             ))}
           </div>

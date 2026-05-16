@@ -11,26 +11,41 @@ export function RoomsSection() {
 
   const rooms = [
     {
-      name: 'Deluxe Tent',
-      price: '$450',
-      description: 'Spacious canvas accommodations with private verandas, en-suite baths, and open-air showers overlooking pristine wilderness.',
-      features: ['King bed or twin', 'En-suite bathroom', 'Open-air shower', 'Private veranda', 'WiFi & charging'],
+      name: 'Cottage',
+      description: 'Comfortable rooms with premium amenities, en-suite bathrooms, and authentic safari hospitality.',
+      features: ['Private room', 'En-suite bathroom', 'WiFi access', 'Room service', 'Veranda'],
+      residentRates: [
+        { plan: 'Bed Only', single: 'Ksh 2,500', double: 'Ksh 3,500' },
+        { plan: 'Bed & Breakfast', single: 'Ksh 10,500', double: 'Ksh 14,500' },
+        { plan: 'Half Board', single: 'Ksh 10,000', double: 'Ksh 15,500' },
+        { plan: 'Full Board', single: 'Ksh 13,500', double: 'Ksh 19,500' },
+      ],
+      nonResidentRates: [
+        { plan: 'Bed Only', single: 'USD 75', double: 'USD 120' },
+        { plan: 'Bed & Breakfast', single: 'USD 85', double: 'USD 140' },
+        { plan: 'Half Board', single: 'USD 100', double: 'USD 170' },
+        { plan: 'Full Board', single: 'USD 130', double: 'USD 200' },
+      ],
       image: '/suite-luxury.jpg',
-    },
-    {
-      name: 'Luxury Suite',
-      price: '$750',
-      description: 'Premium stone-built suites with heated floors, private plunge pools, and curated sustainable luxury amenities.',
-      features: ['King or twin beds', 'Private pool', 'Heated stone floor', 'Luxury toiletries', 'Concierge service'],
       featured: true,
-      image: '/luxury-bedroom.jpg',
     },
     {
-      name: 'Presidential Villa',
-      price: '$1,200',
-      description: 'Ultimate privacy and exclusivity with full-service amenities, personal attention, and bespoke experiences.',
-      features: ['All inclusions', 'Personal guide', 'Private chef', 'Butler service', 'Infinity pool'],
-      image: '/suite-luxury.jpg',
+      name: 'Standard Tent',
+      description: 'Spacious safari tents with comfortable furnishings and private facilities.',
+      features: ['Comfortable sleeping area', 'Full amenities', 'Private outdoor space', 'Upgraded furnishings'],
+      residentRates: [
+        { plan: 'Bed Only', single: 'Ksh 2,000', double: 'Ksh 2,500' },
+        { plan: 'Bed & Breakfast', single: 'Ksh 7,500', double: 'Ksh 12,000' },
+        { plan: 'Half Board', single: 'Ksh 7,000', double: 'Ksh 13,000' },
+        { plan: 'Full Board', single: 'Ksh 10,500', double: 'Ksh 18,000' },
+      ],
+      nonResidentRates: [
+        { plan: 'Bed Only', single: 'USD 60', double: 'USD 110' },
+        { plan: 'Bed & Breakfast', single: 'USD 70', double: 'USD 120' },
+        { plan: 'Half Board', single: 'USD 85', double: 'USD 150' },
+        { plan: 'Full Board', single: 'USD 100', double: 'USD 180' },
+      ],
+      image: '/tent-camping.jpg',
     },
   ]
 
@@ -44,25 +59,25 @@ export function RoomsSection() {
           transition={{ duration: 0.8 }}
           className="text-center mb-16 md:mb-24"
         >
-          <p className="text-secondary text-sm font-light tracking-widest uppercase mb-4">Private Retreats</p>
+          <p className="text-secondary text-sm font-light tracking-widest uppercase mb-4">Accommodation</p>
           <h2 className="text-5xl md:text-6xl font-serif font-bold text-foreground leading-tight">
-            Sanctuaries Of <br /> Uncompromising Comfort
+            Stay With Us In <br /> Comfort And Luxury
           </h2>
         </motion.div>
 
-        <div className="grid lg:grid-cols-3 gap-8">
-          {rooms.map((room, idx) => (
-            <motion.div
-              key={idx}
-              initial={{ opacity: 0, y: 40 }}
-              animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 40 }}
-              transition={{ duration: 0.8, delay: idx * 0.15 }}
-              className={`overflow-hidden transition-all duration-300 group ${
-                room.featured
-                  ? 'lg:col-span-1 lg:row-span-2 ring-2 ring-secondary shadow-2xl'
-                  : ''
-              }`}
-            >
+<div className="grid lg:grid-cols-2 gap-8 items-stretch">
+           {rooms.map((room, idx) => (
+             <motion.div
+               key={idx}
+               initial={{ opacity: 0, y: 40 }}
+               animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 40 }}
+               transition={{ duration: 0.8, delay: idx * 0.15 }}
+               className={`overflow-hidden transition-all duration-300 group flex flex-col h-full ${
+                 room.featured
+                   ? 'ring-2 ring-secondary shadow-2xl'
+                   : ''
+               }`}
+             >
               {/* Image */}
               {room.image && (
                 <div className="relative h-64 lg:h-80 overflow-hidden">
@@ -77,11 +92,11 @@ export function RoomsSection() {
                 </div>
               )}
 
-              {/* Content */}
-              <div className={`p-8 md:p-10 ${room.featured ? 'bg-primary text-white' : 'bg-white'}`}>
+              {/* Content - use flex-1 to fill available space and flex-col to arrange items */}
+              <div className={`p-8 md:p-10 ${room.featured ? 'bg-primary text-white' : 'bg-white'} flex flex-col flex-1`}>
                 {room.featured && (
                   <span className="inline-block bg-secondary text-foreground px-4 py-1 rounded-full text-xs font-semibold uppercase tracking-wide mb-6">
-                    Most Requested
+                    Featured
                   </span>
                 )}
 
@@ -91,12 +106,6 @@ export function RoomsSection() {
                   }`}>
                     {room.name}
                   </h3>
-                  <div className={`text-2xl font-semibold ${
-                    room.featured ? 'text-secondary' : 'text-secondary'
-                  }`}>
-                    {room.price}
-                    <span className="text-sm font-light">/night</span>
-                  </div>
                 </div>
 
                 <p className={`mb-8 leading-relaxed text-lg font-light ${
@@ -104,6 +113,49 @@ export function RoomsSection() {
                 }`}>
                   {room.description}
                 </p>
+
+                {/* Rates Table */}
+                <div className="mb-8 overflow-x-auto">
+                  <p className={`text-sm font-semibold mb-3 ${room.featured ? 'text-white' : 'text-foreground'}`}>Resident Rates (KSH):</p>
+                  <table className="w-full text-sm mb-4">
+                    <thead>
+                      <tr className={`border-b ${room.featured ? 'border-white/20' : 'border-border'}`}>
+                        <th className="text-left py-1">Plan</th>
+                        <th className="text-center py-1">Single</th>
+                        <th className="text-center py-1">Double</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      {room.residentRates.map((rate) => (
+                        <tr key={rate.plan} className={`border-b ${room.featured ? 'border-white/10' : 'border-border'}`}>
+                          <td className="py-1">{rate.plan}</td>
+                          <td className="text-center py-1">{rate.single}</td>
+                          <td className="text-center py-1">{rate.double}</td>
+                        </tr>
+                      ))}
+                    </tbody>
+                  </table>
+                  
+                  <p className={`text-sm font-semibold mb-3 ${room.featured ? 'text-white' : 'text-foreground'}`}>Non-Resident Rates (USD):</p>
+                  <table className="w-full text-sm">
+                    <thead>
+                      <tr className={`border-b ${room.featured ? 'border-white/20' : 'border-border'}`}>
+                        <th className="text-left py-1">Plan</th>
+                        <th className="text-center py-1">Single</th>
+                        <th className="text-center py-1">Double</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      {room.nonResidentRates.map((rate) => (
+                        <tr key={rate.plan} className={`border-b ${room.featured ? 'border-white/10' : 'border-border'}`}>
+                          <td className="py-1">{rate.plan}</td>
+                          <td className="text-center py-1">{rate.single}</td>
+                          <td className="text-center py-1">{rate.double}</td>
+                        </tr>
+                      ))}
+                    </tbody>
+                  </table>
+                </div>
 
                 <div className="space-y-4 mb-8">
                   {room.features.map((feature, fidx) => (
@@ -127,18 +179,42 @@ export function RoomsSection() {
                 <motion.button
                   whileHover={{ scale: 1.02 }}
                   whileTap={{ scale: 0.98 }}
-                  className={`w-full py-4 font-semibold uppercase tracking-wide transition-all ${
+                  className={`w-full py-4 font-semibold uppercase tracking-wide transition-all mt-auto ${
                     room.featured
                       ? 'bg-secondary text-foreground hover:bg-secondary/90'
                       : 'border-2 border-secondary text-secondary hover:bg-secondary hover:text-white'
                   }`}
                 >
-                  Reserve Now
+                  Book Now
                 </motion.button>
               </div>
             </motion.div>
           ))}
         </div>
+
+        {/* Child Policy */}
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
+          transition={{ duration: 0.8, delay: 0.4 }}
+          className="mt-16 bg-white p-8 rounded-lg border border-border"
+        >
+          <h3 className="text-2xl font-serif font-bold text-foreground mb-6">Child Policy</h3>
+          <ul className="grid md:grid-cols-3 gap-4">
+            <li className="flex items-start gap-3">
+              <Check className="w-5 h-5 text-secondary flex-shrink-0 mt-1" />
+              <span className="text-foreground/75">Up to 3 years sharing with adults: <strong>Free</strong></span>
+            </li>
+            <li className="flex items-start gap-3">
+              <Check className="w-5 h-5 text-secondary flex-shrink-0 mt-1" />
+              <span className="text-foreground/75">4–12 years sharing with adults: <strong>50% off adult rate</strong></span>
+            </li>
+            <li className="flex items-start gap-3">
+              <Check className="w-5 h-5 text-secondary flex-shrink-0 mt-1" />
+              <span className="text-foreground/75">4–12 years in own room: <strong>25% off adult rate</strong></span>
+            </li>
+          </ul>
+        </motion.div>
       </div>
     </section>
   )
