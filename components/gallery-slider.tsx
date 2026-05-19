@@ -25,7 +25,7 @@ const galleryImages = [
     description: 'World-class accommodation with a view',
   },
   {
-    src: '/swimming-pool.jpg',
+    src: '/swimmingpool-1.jpeg',
     alt: 'Resort Swimming Pool',
     title: 'Swimming & Recreation',
     description: 'Relax by our infinity pool',

@@ -17,7 +17,7 @@ export const metadata: Metadata = {
 export default function GalleryPage() {
   const galleryItems = [
     { src: '/gallery-1.jpg', alt: 'Wildlife Safari', category: 'Wildlife' },
-    { src: '/suite-luxury.jpg', alt: 'Luxury Accommodation', category: 'Accommodation' },
+    { src: '/tent-camping.jpg', alt: 'Luxury Accommodation', category: 'Accommodation' },
     { src: '/safari-experience.jpg', alt: 'Safari Experience', category: 'Wildlife' },
     { src: '/cultural-experience.jpg', alt: 'Cultural Visit', category: 'Culture' },
     { src: '/pool-recreation.jpg', alt: 'Pool Recreation', category: 'Recreation' },

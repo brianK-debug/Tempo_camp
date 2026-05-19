@@ -26,7 +26,7 @@ export function RoomsSection() {
         { plan: 'Half Board', single: 'USD 100', double: 'USD 170' },
         { plan: 'Full Board', single: 'USD 130', double: 'USD 200' },
       ],
-      image: '/suite-luxury.jpg',
+      image: '/cottage.png',
       featured: true,
     },
     {
@@ -45,19 +45,19 @@ export function RoomsSection() {
         { plan: 'Half Board', single: 'USD 85', double: 'USD 150' },
         { plan: 'Full Board', single: 'USD 100', double: 'USD 180' },
       ],
-      image: '/tent-camping.jpg',
+      image: '/camping-2.jpeg',
     },
   ]
 
   return (
-    <section id="rooms" ref={ref} className="py-24 md:py-40 bg-muted/20">
+    <section id="rooms" ref={ref} className="py-8 md:py-16 bg-muted/20">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         {/* Header */}
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
           transition={{ duration: 0.8 }}
-          className="text-center mb-16 md:mb-24"
+          className="text-center mb-8 md:mb-12"
         >
           <p className="text-secondary text-sm font-light tracking-widest uppercase mb-4">Accommodation</p>
           <h2 className="text-5xl md:text-6xl font-serif font-bold text-foreground leading-tight">

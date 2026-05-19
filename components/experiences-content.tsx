@@ -10,7 +10,7 @@ export function ExperiencesContent() {
       title: 'Accommodation & Camping',
       description: 'Sleep under African stars in our luxurious safari tents and suites. World-class amenities with authentic wilderness experience.',
       href: '/experiences/accommodation',
-      image: '/suite-luxury.jpg',
+      image: '/tent-camping.jpg',
     },
     {
       title: 'Wildlife & Nature',
@@ -28,19 +28,19 @@ export function ExperiencesContent() {
       title: 'Swimming & Recreation',
       description: 'Relax and rejuvenate with spa, yoga, and swimming. World-class wellness facilities in the heart of nature.',
       href: '/experiences/recreation',
-      image: '/pool-recreation.jpg',
+      image: '/swimmingpool-2.jpeg',
     },
     {
       title: 'Family Getaways',
       description: 'Create lasting memories with family-friendly safaris and activities. Educational programs for children of all ages.',
       href: '/experiences/family',
-      image: '/family-experience.jpg',
+      image: '/family-safari.jpg',
     },
     {
       title: 'Group Retreats',
       description: 'Transform your team with corporate retreats and group adventures. Team building in the wilderness.',
       href: '/experiences/group',
-      image: '/group-experience.jpg',
+      image: '/group-retreat.jpg',
     },
   ]
 

@@ -1,6 +1,7 @@
 'use client'
 
 import Link from 'next/link'
+import Image from 'next/image'
 import { Mail, MapPin, Phone } from 'lucide-react'
 
 export function Footer() {
@@ -35,9 +36,7 @@ export function Footer() {
           {/* Brand section */}
           <div className="md:col-span-2 space-y-6">
             <div>
-              <h3 className="text-2xl md:text-3xl font-serif font-bold text-secondary mb-2">
-                Samburu Tempo
-              </h3>
+              <Image src="/logo.png" alt="Samburu Tempo" width={160} height={160} className="mb-4" />
               <p className="text-lg font-light text-background/80 leading-relaxed">
                 Luxury eco-tourism reimagined. Where sustainable hospitality meets untamed African wilderness.
               </p>

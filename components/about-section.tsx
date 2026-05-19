@@ -16,14 +16,14 @@ export function AboutSection() {
   ]
 
   return (
-    <section id="about" ref={ref} className="py-24 md:py-40 bg-background">
+    <section id="about" ref={ref} className="py-8 md:py-16 bg-background">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         {/* Header */}
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
           transition={{ duration: 0.8 }}
-          className="text-center mb-16 md:mb-24"
+          className="text-center mb-8 md:mb-12"
         >
           <p className="text-secondary text-sm font-light tracking-widest uppercase mb-4">Our Philosophy</p>
           <h2 className="text-5xl md:text-6xl font-serif font-bold text-foreground leading-tight">
@@ -32,7 +32,7 @@ export function AboutSection() {
         </motion.div>
 
         {/* Main content grid */}
-        <div className="grid lg:grid-cols-2 gap-12 md:gap-16 items-center mb-16 md:mb-24">
+        <div className="grid lg:grid-cols-2 gap-12 md:gap-16 items-center mb-8 md:mb-12">
           {/* Image */}
           <motion.div
             initial={{ opacity: 0, x: -40 }}
@@ -41,7 +41,7 @@ export function AboutSection() {
             className="relative h-96 md:h-[500px]"
           >
             <Image
-              src="/suite-luxury.jpg"
+              src="/tent-camping.jpg"
               alt="Samburu Tempo luxury accommodation"
               fill
               className="object-cover"

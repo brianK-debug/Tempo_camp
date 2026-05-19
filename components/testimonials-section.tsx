@@ -36,14 +36,14 @@ export function TestimonialsSection() {
   ]
 
   return (
-    <section id="testimonials" ref={ref} className="py-24 md:py-40 bg-background">
+    <section id="testimonials" ref={ref} className="py-8 md:py-16 bg-background">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         {/* Header */}
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
           transition={{ duration: 0.8 }}
-          className="text-center mb-16 md:mb-24"
+          className="text-center mb-8 md:mb-12"
         >
           <p className="text-secondary text-sm font-light tracking-widest uppercase mb-4">Guest Experiences</p>
           <h2 className="text-5xl md:text-6xl font-serif font-bold text-foreground leading-tight">

@@ -34,9 +34,9 @@ export function AccommodationContent() {
   ]
 
   const amenities = [
-    { icon: '🍽️', title: 'Meals on Order', description: 'Chef-prepared cuisine tailored to your preferences' },
-    { icon: '🥤', title: 'Soft Drinks', description: 'Refreshing beverages available throughout your stay' },
-    { icon: '🏊', title: 'Swimming Pool Access', description: 'Residents: Kshs 500 | Non-residents: Kshs 1,000' },
+    { title: 'Meals on Order', description: 'Chef-prepared cuisine tailored to your preferences' },
+    { title: 'Soft Drinks', description: 'Refreshing beverages available throughout your stay' },
+    { title: 'Swimming Pool Access', description: 'Residents: Kshs 500 | Non-residents: Kshs 1,000' },
   ]
 
   return (
@@ -44,7 +44,7 @@ export function AccommodationContent() {
       {/* Hero Section */}
       <section className="relative h-96 md:h-[500px] overflow-hidden pt-32 md:pt-40">
         <Image
-          src="/tent-camping.jpg"
+          src="/cottage.png"
           alt="Accommodation"
           fill
           className="object-cover"
@@ -74,68 +74,72 @@ export function AccommodationContent() {
             {/* Cottage Section */}
             <div className="mb-16">
               <h3 className="text-3xl font-serif font-bold text-foreground mb-6">Cottage</h3>
-              <div className="relative h-64 rounded-lg overflow-hidden mb-8">
-                <Image
-                  src="/suite-luxury.jpg"
-                  alt="Cottage Accommodation"
-                  fill
-                  className="object-cover"
-                  quality={90}
-                />
-              </div>
-              <div className="overflow-x-auto">
-                <table className="w-full bg-white rounded-lg shadow border border-border">
-                  <thead>
-                    <tr className="bg-primary text-white">
-                      <th className="py-4 px-6 text-left">Plan</th>
-                      <th className="py-4 px-6 text-center">Single</th>
-                      <th className="py-4 px-6 text-center">Double</th>
-                    </tr>
-                  </thead>
-                  <tbody>
-                    {residentCottageRates.map((rate, i) => (
-                      <tr key={rate.plan} className={i % 2 === 0 ? 'bg-white' : 'bg-muted/20'}>
-                        <td className="py-4 px-6 font-semibold text-foreground">{rate.plan}</td>
-                        <td className="py-4 px-6 text-center text-secondary font-bold">{rate.single}</td>
-                        <td className="py-4 px-6 text-center text-secondary font-bold">{rate.double}</td>
+              <div className="grid lg:grid-cols-2 gap-8 items-start">
+                <div className="overflow-x-auto">
+                  <table className="w-full bg-white rounded-lg shadow border border-border">
+                    <thead>
+                      <tr className="bg-primary text-white">
+                        <th className="py-4 px-6 text-left">Plan</th>
+                        <th className="py-4 px-6 text-center">Single</th>
+                        <th className="py-4 px-6 text-center">Double</th>
                       </tr>
-                    ))}
-                  </tbody>
-                </table>
+                    </thead>
+                    <tbody>
+                      {residentCottageRates.map((rate, i) => (
+                        <tr key={rate.plan} className={i % 2 === 0 ? 'bg-white' : 'bg-muted/20'}>
+                          <td className="py-4 px-6 font-semibold text-foreground">{rate.plan}</td>
+                          <td className="py-4 px-6 text-center text-secondary font-bold">{rate.single}</td>
+                          <td className="py-4 px-6 text-center text-secondary font-bold">{rate.double}</td>
+                        </tr>
+                      ))}
+                    </tbody>
+                  </table>
+                </div>
+                <div className="relative h-96 rounded-lg overflow-hidden">
+                  <Image
+                    src="/cottage.png"
+                    alt="Cottage Accommodation"
+                    fill
+                    className="object-cover"
+                    quality={90}
+                  />
+                </div>
               </div>
             </div>
 
             {/* Standard Tent Section */}
             <div className="mb-16">
               <h3 className="text-3xl font-serif font-bold text-foreground mb-6">Standard Tent</h3>
-              <div className="relative h-64 rounded-lg overflow-hidden mb-8">
-                <Image
-                  src="/tent-camping.jpg"
-                  alt="Standard Tent"
-                  fill
-                  className="object-cover"
-                  quality={90}
-                />
-              </div>
-              <div className="overflow-x-auto">
-                <table className="w-full bg-white rounded-lg shadow border border-border">
-                  <thead>
-                    <tr className="bg-primary text-white">
-                      <th className="py-4 px-6 text-left">Plan</th>
-                      <th className="py-4 px-6 text-center">Single</th>
-                      <th className="py-4 px-6 text-center">Double</th>
-                    </tr>
-                  </thead>
-                  <tbody>
-                    {residentTentRates.map((rate, i) => (
-                      <tr key={rate.plan} className={i % 2 === 0 ? 'bg-white' : 'bg-muted/20'}>
-                        <td className="py-4 px-6 font-semibold text-foreground">{rate.plan}</td>
-                        <td className="py-4 px-6 text-center text-secondary font-bold">{rate.single}</td>
-                        <td className="py-4 px-6 text-center text-secondary font-bold">{rate.double}</td>
+              <div className="grid lg:grid-cols-2 gap-8 items-start">
+                <div className="overflow-x-auto">
+                  <table className="w-full bg-white rounded-lg shadow border border-border">
+                    <thead>
+                      <tr className="bg-primary text-white">
+                        <th className="py-4 px-6 text-left">Plan</th>
+                        <th className="py-4 px-6 text-center">Single</th>
+                        <th className="py-4 px-6 text-center">Double</th>
                       </tr>
-                    ))}
-                  </tbody>
-                </table>
+                    </thead>
+                    <tbody>
+                      {residentTentRates.map((rate, i) => (
+                        <tr key={rate.plan} className={i % 2 === 0 ? 'bg-white' : 'bg-muted/20'}>
+                          <td className="py-4 px-6 font-semibold text-foreground">{rate.plan}</td>
+                          <td className="py-4 px-6 text-center text-secondary font-bold">{rate.single}</td>
+                          <td className="py-4 px-6 text-center text-secondary font-bold">{rate.double}</td>
+                        </tr>
+                      ))}
+                    </tbody>
+                  </table>
+                </div>
+                <div className="relative h-96 rounded-lg overflow-hidden">
+                  <Image
+                    src="/accomodation.jpeg"
+                    alt="Standard Tent"
+                    fill
+                    className="object-cover"
+                    quality={90}
+                  />
+                </div>
               </div>
             </div>
           </motion.div>
@@ -152,68 +156,72 @@ export function AccommodationContent() {
             {/* Cottage Section */}
             <div className="mb-16">
               <h3 className="text-3xl font-serif font-bold text-foreground mb-6">Cottage</h3>
-              <div className="relative h-64 rounded-lg overflow-hidden mb-8">
-                <Image
-                  src="/suite-luxury.jpg"
-                  alt="Cottage Accommodation"
-                  fill
-                  className="object-cover"
-                  quality={90}
-                />
-              </div>
-              <div className="overflow-x-auto">
-                <table className="w-full bg-white rounded-lg shadow border border-border">
-                  <thead>
-                    <tr className="bg-primary text-white">
-                      <th className="py-4 px-6 text-left">Plan</th>
-                      <th className="py-4 px-6 text-center">Single</th>
-                      <th className="py-4 px-6 text-center">Double</th>
-                    </tr>
-                  </thead>
-                  <tbody>
-                    {nonResidentCottageRates.map((rate, i) => (
-                      <tr key={rate.plan} className={i % 2 === 0 ? 'bg-white' : 'bg-muted/20'}>
-                        <td className="py-4 px-6 font-semibold text-foreground">{rate.plan}</td>
-                        <td className="py-4 px-6 text-center text-secondary font-bold">{rate.single}</td>
-                        <td className="py-4 px-6 text-center text-secondary font-bold">{rate.double}</td>
+              <div className="grid lg:grid-cols-2 gap-8 items-start">
+                <div className="overflow-x-auto">
+                  <table className="w-full bg-white rounded-lg shadow border border-border">
+                    <thead>
+                      <tr className="bg-primary text-white">
+                        <th className="py-4 px-6 text-left">Plan</th>
+                        <th className="py-4 px-6 text-center">Single</th>
+                        <th className="py-4 px-6 text-center">Double</th>
                       </tr>
-                    ))}
-                  </tbody>
-                </table>
+                    </thead>
+                    <tbody>
+                      {nonResidentCottageRates.map((rate, i) => (
+                        <tr key={rate.plan} className={i % 2 === 0 ? 'bg-white' : 'bg-muted/20'}>
+                          <td className="py-4 px-6 font-semibold text-foreground">{rate.plan}</td>
+                          <td className="py-4 px-6 text-center text-secondary font-bold">{rate.single}</td>
+                          <td className="py-4 px-6 text-center text-secondary font-bold">{rate.double}</td>
+                        </tr>
+                      ))}
+                    </tbody>
+                  </table>
+                </div>
+                <div className="relative h-96 rounded-lg overflow-hidden">
+                  <Image
+                    src="/cottage.png"
+                    alt="Cottage Accommodation"
+                    fill
+                    className="object-cover"
+                    quality={90}
+                  />
+                </div>
               </div>
             </div>
 
             {/* Standard Tent Section */}
             <div className="mb-16">
               <h3 className="text-3xl font-serif font-bold text-foreground mb-6">Standard Tent</h3>
-              <div className="relative h-64 rounded-lg overflow-hidden mb-8">
-                <Image
-                  src="/tent-camping.jpg"
-                  alt="Standard Tent"
-                  fill
-                  className="object-cover"
-                  quality={90}
-                />
-              </div>
-              <div className="overflow-x-auto">
-                <table className="w-full bg-white rounded-lg shadow border border-border">
-                  <thead>
-                    <tr className="bg-primary text-white">
-                      <th className="py-4 px-6 text-left">Plan</th>
-                      <th className="py-4 px-6 text-center">Single</th>
-                      <th className="py-4 px-6 text-center">Double</th>
-                    </tr>
-                  </thead>
-                  <tbody>
-                    {nonResidentTentRates.map((rate, i) => (
-                      <tr key={rate.plan} className={i % 2 === 0 ? 'bg-white' : 'bg-muted/20'}>
-                        <td className="py-4 px-6 font-semibold text-foreground">{rate.plan}</td>
-                        <td className="py-4 px-6 text-center text-secondary font-bold">{rate.single}</td>
-                        <td className="py-4 px-6 text-center text-secondary font-bold">{rate.double}</td>
+              <div className="grid lg:grid-cols-2 gap-8 items-start">
+                <div className="overflow-x-auto">
+                  <table className="w-full bg-white rounded-lg shadow border border-border">
+                    <thead>
+                      <tr className="bg-primary text-white">
+                        <th className="py-4 px-6 text-left">Plan</th>
+                        <th className="py-4 px-6 text-center">Single</th>
+                        <th className="py-4 px-6 text-center">Double</th>
                       </tr>
-                    ))}
-                  </tbody>
-                </table>
+                    </thead>
+                    <tbody>
+                      {nonResidentTentRates.map((rate, i) => (
+                        <tr key={rate.plan} className={i % 2 === 0 ? 'bg-white' : 'bg-muted/20'}>
+                          <td className="py-4 px-6 font-semibold text-foreground">{rate.plan}</td>
+                          <td className="py-4 px-6 text-center text-secondary font-bold">{rate.single}</td>
+                          <td className="py-4 px-6 text-center text-secondary font-bold">{rate.double}</td>
+                        </tr>
+                      ))}
+                    </tbody>
+                  </table>
+                </div>
+                <div className="relative h-96 rounded-lg overflow-hidden">
+                  <Image
+                    src="/accomodation.jpeg"
+                    alt="Standard Tent"
+                    fill
+                    className="object-cover"
+                    quality={90}
+                  />
+                </div>
               </div>
             </div>
           </motion.div>
@@ -273,7 +281,6 @@ export function AccommodationContent() {
                   transition={{ delay: i * 0.1 }}
                   className="text-center p-8 bg-white rounded-lg border border-border hover:shadow-lg transition-all"
                 >
-                  <div className="text-5xl mb-4">{amenity.icon}</div>
                   <h3 className="text-2xl font-serif font-bold text-foreground mb-3">
                     {amenity.title}
                   </h3>

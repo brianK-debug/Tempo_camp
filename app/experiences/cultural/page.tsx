@@ -3,7 +3,6 @@ import { Navigation } from '@/components/navigation'
 import { Footer } from '@/components/footer'
 import { CTASection } from '@/components/cta-section'
 import Image from 'next/image'
-import { motion } from 'framer-motion'
 import { Check } from 'lucide-react'
 
 export const metadata: Metadata = {
@@ -55,11 +54,8 @@ export default function CulturalPage() {
           </h2>
           <div className="grid md:grid-cols-2 gap-8">
             {activities.map((activity) => (
-              <motion.div
+              <div
                 key={activity.title}
-                initial={{ opacity: 0, y: 20 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                transition={{ delay: activities.indexOf(activity) * 0.1 }}
                 className="bg-white rounded-lg overflow-hidden border border-border"
               >
                 <div className="relative h-64">
@@ -75,7 +71,7 @@ export default function CulturalPage() {
                   <h3 className="text-2xl font-serif font-bold text-foreground mb-3">{activity.title}</h3>
                   <p className="text-secondary font-semibold text-lg">{activity.description}</p>
                 </div>
-              </motion.div>
+              </div>
             ))}
           </div>
         </div>

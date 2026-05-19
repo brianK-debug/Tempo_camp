@@ -1,6 +1,7 @@
 'use client'
 
 import Link from 'next/link'
+import Image from 'next/image'
 import { useState, useEffect } from 'react'
 import { Menu, X } from 'lucide-react'
 import { motion, AnimatePresence } from 'framer-motion'
@@ -36,9 +37,7 @@ export function Navigation() {
         <div className="flex justify-between items-center h-20 lg:h-24">
           {/* Logo */}
           <Link href="/" className="flex items-center gap-2 group flex-shrink-0">
-            <div className="w-10 h-10 bg-secondary rounded-sm flex items-center justify-center group-hover:scale-110 transition-transform">
-              <span className="text-white font-serif font-bold text-xl">S</span>
-            </div>
+            <Image src="/logo.png" alt="Samburu Tempo" width={80} height={80} className="rounded-xl group-hover:scale-110 transition-transform" />
             <div className="hidden sm:block">
               <div className="font-serif font-bold text-base text-foreground">Samburu</div>
               <div className="text-xs text-secondary font-light">Tempo</div>

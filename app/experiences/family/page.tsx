@@ -3,7 +3,6 @@ import { Navigation } from '@/components/navigation'
 import { Footer } from '@/components/footer'
 import { CTASection } from '@/components/cta-section'
 import Image from 'next/image'
-import { motion } from 'framer-motion'
 import { Check } from 'lucide-react'
 
 export const metadata: Metadata = {
