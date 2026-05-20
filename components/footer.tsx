@@ -49,7 +49,7 @@ export function Footer() {
                 className="flex items-center gap-3 text-background/80 hover:text-secondary transition-colors text-sm"
               >
                 <Phone className="w-5 h-5 flex-shrink-0" />
-                <span>+254 (0) 123 456 789</span>
+                <span>+254 712 875 127</span>
               </a>
               <a
                 href="mailto:reservations@samburutempo.com"
