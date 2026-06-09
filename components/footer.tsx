@@ -2,7 +2,7 @@
 
 import Link from 'next/link'
 import Image from 'next/image'
-import { Mail, MapPin, Phone } from 'lucide-react'
+import { Mail, MapPin, Phone, Instagram, Facebook, X } from 'lucide-react'
 
 export function Footer() {
   const currentYear = new Date().getFullYear()
@@ -21,10 +21,9 @@ export function Footer() {
       { label: 'Privacy Policy', href: '#' },
     ],
     Follow: [
-      { label: 'Instagram', href: '#' },
-      { label: 'Facebook', href: '#' },
-      { label: 'LinkedIn', href: '#' },
-      { label: 'YouTube', href: '#' },
+      { label: 'Instagram', href: 'https://www.instagram.com/samburutempocamp?igsh=d3N3bXl6cG42YWo1' },
+      { label: 'Facebook', href: 'https://www.facebook.com/profile.php?id=61573340544810&mibextid=ZbWKwL' },
+      { label: 'X', href: 'https://www.youtube.com' },
     ],
   }
 
@@ -65,24 +64,40 @@ export function Footer() {
             </div>
           </div>
 
-          {/* Footer link columns */}
-{Object.entries(footerLinks).map(([title, links]) => (
-             <div key={title}>
-               <h4 className="font-serif font-semibold text-lg text-background mb-6">{title}</h4>
-               <ul className="space-y-3">
-                 {links.map((link) => (
-                   <li key={`${title}-${link.label}`}>
-                     <Link
-                       href={link.href}
-                       className="text-background/70 hover:text-secondary transition-colors text-sm font-light"
-                     >
-                       {link.label}
-                     </Link>
-                   </li>
-                 ))}
-               </ul>
-             </div>
-           ))}
+        {/* Footer link columns */}
+        {Object.entries(footerLinks).map(([title, links]) => (
+              <div key={title}>
+                <h4 className="font-serif font-semibold text-lg text-background mb-6">{title}</h4>
+                {title === 'Follow' ? (
+                  <div className="flex space-x-4">
+                    {links.map((link) => (
+                      <Link
+                        key={link.label}
+                        href={link.href}
+                        className="text-background/70 hover:text-secondary transition-colors"
+                      >
+{link.label === 'Instagram' && <Instagram className="w-6 h-6" />}
+{link.label === 'Facebook' && <Facebook className="w-6 h-6" />}
+{link.label === 'X' && <X className="w-6 h-6" />}
+                      </Link>
+                    ))}
+                  </div>
+                ) : (
+                  <ul className="space-y-3">
+                    {links.map((link) => (
+                      <li key={`${title}-${link.label}`}>
+                        <Link
+                          href={link.href}
+                          className="text-background/70 hover:text-secondary transition-colors text-sm font-light"
+                        >
+                          {link.label}
+                        </Link>
+                      </li>
+                    ))}
+                  </ul>
+                )}
+              </div>
+            ))}
         </div>
 
         {/* Divider */}
