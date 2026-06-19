@@ -2,7 +2,7 @@ import { Metadata } from 'next'
 import { Navigation } from '@/components/navigation'
 import { Footer } from '@/components/footer'
 import { CTASection } from '@/components/cta-section'
-import { AccommodationContent } from '@/components/accommodation-content'
+import { AccommodationPageClient } from '@/components/accommodation-page-client'
 
 export const metadata: Metadata = {
   title: 'Luxury Accommodation & Camping | Samburu Tempo Camp',
@@ -18,7 +18,7 @@ export default function AccommodationPage() {
   return (
     <main className="bg-background">
       <Navigation />
-      <AccommodationContent />
+      <AccommodationPageClient />
       <CTASection />
       <Footer />
     </main>

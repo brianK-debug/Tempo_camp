@@ -117,44 +117,56 @@ export function RoomsSection() {
                 {/* Rates Table */}
                 <div className="mb-8 overflow-x-auto">
                   <p className={`text-sm font-semibold mb-3 ${room.featured ? 'text-white' : 'text-foreground'}`}>Resident Rates (KSH):</p>
-                  <table className="w-full text-sm mb-4">
-                    <thead>
-                      <tr className={`border-b ${room.featured ? 'border-white/20' : 'border-border'}`}>
-                        <th className="text-left py-1">Plan</th>
-                        <th className="text-center py-1">Single</th>
-                        <th className="text-center py-1">Double</th>
-                      </tr>
-                    </thead>
-                    <tbody>
-                      {room.residentRates.map((rate) => (
-                        <tr key={rate.plan} className={`border-b ${room.featured ? 'border-white/10' : 'border-border'}`}>
-                          <td className="py-1">{rate.plan}</td>
-                          <td className="text-center py-1">{rate.single}</td>
-                          <td className="text-center py-1">{rate.double}</td>
-                        </tr>
-                      ))}
-                    </tbody>
-                  </table>
+                   <table className="w-full text-sm mb-4">
+                     <thead>
+                       <tr className={`border-b ${room.featured ? 'border-white/20' : 'border-border'}`}>
+                         <th className="text-left py-1">Plan</th>
+                         <th className="text-center py-1">Single</th>
+                         <th className="text-center py-1">Double</th>
+                         <th className="text-center py-1">Book Plan</th>
+                       </tr>
+                     </thead>
+                     <tbody>
+                       {room.residentRates.map((rate) => (
+                         <tr key={rate.plan} className={`border-b ${room.featured ? 'border-white/10' : 'border-border'}`}>
+                           <td className="py-1">{rate.plan}</td>
+                           <td className="text-center py-1 text-secondary font-bold">{rate.single}</td>
+                           <td className="text-center py-1 text-secondary font-bold">{rate.double}</td>
+                           <td className="py-1 text-center">
+                             <button className="bg-secondary text-foreground px-3 py-1 rounded text-xs font-semibold uppercase tracking-wide hover:bg-secondary/90 transition-colors">
+                               Book Now
+                             </button>
+                           </td>
+                         </tr>
+                       ))}
+                     </tbody>
+                   </table>
                   
                   <p className={`text-sm font-semibold mb-3 ${room.featured ? 'text-white' : 'text-foreground'}`}>Non-Resident Rates (USD):</p>
-                  <table className="w-full text-sm">
-                    <thead>
-                      <tr className={`border-b ${room.featured ? 'border-white/20' : 'border-border'}`}>
-                        <th className="text-left py-1">Plan</th>
-                        <th className="text-center py-1">Single</th>
-                        <th className="text-center py-1">Double</th>
-                      </tr>
-                    </thead>
-                    <tbody>
-                      {room.nonResidentRates.map((rate) => (
-                        <tr key={rate.plan} className={`border-b ${room.featured ? 'border-white/10' : 'border-border'}`}>
-                          <td className="py-1">{rate.plan}</td>
-                          <td className="text-center py-1">{rate.single}</td>
-                          <td className="text-center py-1">{rate.double}</td>
-                        </tr>
-                      ))}
-                    </tbody>
-                  </table>
+                   <table className="w-full text-sm">
+                     <thead>
+                       <tr className={`border-b ${room.featured ? 'border-white/20' : 'border-border'}`}>
+                         <th className="text-left py-1">Plan</th>
+                         <th className="text-center py-1">Single</th>
+                         <th className="text-center py-1">Double</th>
+                         <th className="text-center py-1">Book Plan</th>
+                       </tr>
+                     </thead>
+                     <tbody>
+                       {room.nonResidentRates.map((rate) => (
+                         <tr key={rate.plan} className={`border-b ${room.featured ? 'border-white/10' : 'border-border'}`}>
+                           <td className="py-1">{rate.plan}</td>
+                           <td className="text-center py-1 text-secondary font-bold">{rate.single}</td>
+                           <td className="text-center py-1 text-secondary font-bold">{rate.double}</td>
+                           <td className="py-1 text-center">
+                             <button className="bg-secondary text-foreground px-3 py-1 rounded text-xs font-semibold uppercase tracking-wide hover:bg-secondary/90 transition-colors">
+                               Book Now
+                             </button>
+                           </td>
+                         </tr>
+                       ))}
+                     </tbody>
+                   </table>
                 </div>
 
                 <div className="space-y-4 mb-8">

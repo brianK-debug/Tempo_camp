@@ -4,7 +4,9 @@ import Image from 'next/image'
 import { motion } from 'framer-motion'
 import { Check } from 'lucide-react'
 
-export function AccommodationContent() {
+type OnBookNow = (data: { accommodation: string; rateType: string; ratePlan: string; singlePrice: string; doublePrice: string }) => void
+
+export function AccommodationContent({ onBookNow }: { onBookNow?: OnBookNow } = {}) {
   const residentCottageRates = [
     { plan: 'Bed Only', single: 'Ksh 2,500', double: 'Ksh 3,500' },
     { plan: 'Bed & Breakfast', single: 'Ksh 10,500', double: 'Ksh 14,500' },
@@ -39,10 +41,26 @@ export function AccommodationContent() {
     { title: 'Swimming Pool Access', description: 'Residents: Kshs 500 | Non-residents: Kshs 1,000' },
   ]
 
+  const rows = [
+    {
+      title: 'Cottage',
+      residentRates: residentCottageRates,
+      nonResidentRates: nonResidentCottageRates,
+      src: '/cottage.png',
+      alt: 'Cottage Accommodation',
+    },
+    {
+      title: 'Standard Tent',
+      residentRates: residentTentRates,
+      nonResidentRates: nonResidentTentRates,
+      src: '/accomodation.jpeg',
+      alt: 'Standard Tent',
+    },
+  ]
+
   return (
     <>
-      {/* Hero Section */}
-      <section className="relative h-96 md:h-[500px] overflow-hidden pt-32 md:pt-40">
+      <section className="relative h-screen overflow-hidden pt-32 md:pt-40">
         <Image
           src="/cottage.png"
           alt="Accommodation"
@@ -62,180 +80,109 @@ export function AccommodationContent() {
       </section>
 
       <section className="py-24 md:py-40 bg-background">
-        <div className="max-w-7xl mx-auto px-6 md:px-12">
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-          >
-            <h2 className="text-4xl md:text-5xl font-serif font-bold text-foreground mb-6">
-              Resident Rates (KSH)
-            </h2>
-            
-            {/* Cottage Section */}
-            <div className="mb-16">
-              <h3 className="text-3xl font-serif font-bold text-foreground mb-6">Cottage</h3>
-              <div className="grid lg:grid-cols-2 gap-8 items-start">
-                <div className="overflow-x-auto">
-                  <table className="w-full bg-white rounded-lg shadow border border-border">
-                    <thead>
-                      <tr className="bg-primary text-white">
-                        <th className="py-4 px-6 text-left">Plan</th>
-                        <th className="py-4 px-6 text-center">Single</th>
-                        <th className="py-4 px-6 text-center">Double</th>
-                      </tr>
-                    </thead>
-                    <tbody>
-                      {residentCottageRates.map((rate, i) => (
-                        <tr key={rate.plan} className={i % 2 === 0 ? 'bg-white' : 'bg-muted/20'}>
-                          <td className="py-4 px-6 font-semibold text-foreground">{rate.plan}</td>
-                          <td className="py-4 px-6 text-center text-secondary font-bold">{rate.single}</td>
-                          <td className="py-4 px-6 text-center text-secondary font-bold">{rate.double}</td>
-                        </tr>
-                      ))}
-                    </tbody>
-                  </table>
-                </div>
-                <div className="relative h-96 rounded-lg overflow-hidden">
-                  <Image
-                    src="/cottage.png"
-                    alt="Cottage Accommodation"
-                    fill
-                    className="object-cover"
-                    quality={90}
-                  />
+        <div className="max-w-[95%] mx-auto px-4 md:px-8 lg:px-12">
+          <h2 className="text-4xl md:text-5xl font-serif font-bold text-foreground mb-12 text-center">
+            Our Accommodation Rates
+          </h2>
+
+          <div className="space-y-4">
+            {rows.map((item, idx) => (
+              <div key={item.title} className={idx > 0 ? 'mt-16' : ''}>
+                {idx > 0 && <hr className="mb-10 border-border" />}
+                <h3 className="text-2xl font-serif font-bold text-foreground mb-6 text-center">
+                  {item.title}
+                </h3>
+
+                <div className="grid lg:grid-cols-3 gap-6 lg:gap-8 items-stretch">
+                  <div className="flex flex-col h-[320px]">
+                    <h4 className="text-xl font-serif font-bold text-foreground mb-3 text-center lg:text-left">
+                      Resident Rates (KSH)
+                    </h4>
+                    <div className="flex-1 overflow-x-auto">
+                      <table className="w-full h-full bg-white rounded-lg shadow border border-border">
+                        <thead>
+                          <tr className="bg-primary text-white">
+                            <th className="py-3 px-4 text-left text-sm">Plan</th>
+                            <th className="py-3 px-4 text-center text-sm">Single</th>
+                            <th className="py-3 px-4 text-center text-sm">Double</th>
+                            <th className="py-3 px-4 text-center text-sm">Book Plan</th>
+                          </tr>
+                        </thead>
+                        <tbody>
+                          {item.residentRates.map((rate, i) => (
+                            <tr key={rate.plan} className={i % 2 === 0 ? 'bg-white' : 'bg-muted/20'}>
+                              <td className="py-3 px-4 font-semibold text-foreground text-sm">{rate.plan}</td>
+                              <td className="py-3 px-4 text-center text-secondary font-bold text-sm">{rate.single}</td>
+                              <td className="py-3 px-4 text-center text-secondary font-bold text-sm">{rate.double}</td>
+                              <td className="py-3 px-4 text-center">
+                                <button
+                                  onClick={() => onBookNow?.({ accommodation: `${item.title} — Resident`, rateType: 'resident-kes', ratePlan: rate.plan, singlePrice: rate.single, doublePrice: rate.double })}
+                                  className="bg-secondary text-foreground px-3 py-1 rounded text-xs font-semibold uppercase tracking-wide hover:bg-secondary/90 transition-colors"
+                                >
+                                  Book Now
+                                </button>
+                              </td>
+                            </tr>
+                          ))}
+                        </tbody>
+                      </table>
+                    </div>
+                  </div>
+
+                  <div className="relative h-[320px] rounded-lg overflow-hidden">
+                    <Image
+                      src={item.src}
+                      alt={item.alt}
+                      fill
+                      className="object-cover"
+                      quality={90}
+                    />
+                  </div>
+
+                  <div className="flex flex-col h-[320px]">
+                    <h4 className="text-xl font-serif font-bold text-foreground mb-3 text-center lg:text-left">
+                      Non resident rates (USD)
+                    </h4>
+                    <div className="flex-1 overflow-x-auto">
+                      <table className="w-full h-full bg-white rounded-lg shadow border border-border">
+                        <thead>
+                          <tr className="bg-primary text-white">
+                            <th className="py-3 px-4 text-left text-sm">Plan</th>
+                            <th className="py-3 px-4 text-center text-sm">Single</th>
+                            <th className="py-3 px-4 text-center text-sm">Double</th>
+                            <th className="py-3 px-4 text-center text-sm">Book Plan</th>
+                          </tr>
+                        </thead>
+                        <tbody>
+                          {item.nonResidentRates.map((rate, i) => (
+                            <tr key={rate.plan} className={i % 2 === 0 ? 'bg-white' : 'bg-muted/20'}>
+                              <td className="py-3 px-4 font-semibold text-foreground text-sm">{rate.plan}</td>
+                              <td className="py-3 px-4 text-center text-secondary font-bold text-sm">{rate.single}</td>
+                              <td className="py-3 px-4 text-center text-secondary font-bold text-sm">{rate.double}</td>
+                              <td className="py-3 px-4 text-center">
+                                <button
+                                  onClick={() => onBookNow?.({ accommodation: `${item.title} — Non-Resident`, rateType: 'non-resident-usd', ratePlan: rate.plan, singlePrice: rate.single, doublePrice: rate.double })}
+                                  className="bg-secondary text-foreground px-3 py-1 rounded text-xs font-semibold uppercase tracking-wide hover:bg-secondary/90 transition-colors"
+                                >
+                                  Book Now
+                                </button>
+                              </td>
+                            </tr>
+                          ))}
+                        </tbody>
+                      </table>
+                    </div>
+                  </div>
                 </div>
               </div>
-            </div>
+            ))}
+          </div>
 
-            {/* Standard Tent Section */}
-            <div className="mb-16">
-              <h3 className="text-3xl font-serif font-bold text-foreground mb-6">Standard Tent</h3>
-              <div className="grid lg:grid-cols-2 gap-8 items-start">
-                <div className="overflow-x-auto">
-                  <table className="w-full bg-white rounded-lg shadow border border-border">
-                    <thead>
-                      <tr className="bg-primary text-white">
-                        <th className="py-4 px-6 text-left">Plan</th>
-                        <th className="py-4 px-6 text-center">Single</th>
-                        <th className="py-4 px-6 text-center">Double</th>
-                      </tr>
-                    </thead>
-                    <tbody>
-                      {residentTentRates.map((rate, i) => (
-                        <tr key={rate.plan} className={i % 2 === 0 ? 'bg-white' : 'bg-muted/20'}>
-                          <td className="py-4 px-6 font-semibold text-foreground">{rate.plan}</td>
-                          <td className="py-4 px-6 text-center text-secondary font-bold">{rate.single}</td>
-                          <td className="py-4 px-6 text-center text-secondary font-bold">{rate.double}</td>
-                        </tr>
-                      ))}
-                    </tbody>
-                  </table>
-                </div>
-                <div className="relative h-96 rounded-lg overflow-hidden">
-                  <Image
-                    src="/accomodation.jpeg"
-                    alt="Standard Tent"
-                    fill
-                    className="object-cover"
-                    quality={90}
-                  />
-                </div>
-              </div>
-            </div>
-          </motion.div>
-
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            className="mb-24"
-          >
-            <h2 className="text-4xl md:text-5xl font-serif font-bold text-foreground mb-6">
-              Non-Resident Rates (USD)
-            </h2>
-            
-            {/* Cottage Section */}
-            <div className="mb-16">
-              <h3 className="text-3xl font-serif font-bold text-foreground mb-6">Cottage</h3>
-              <div className="grid lg:grid-cols-2 gap-8 items-start">
-                <div className="overflow-x-auto">
-                  <table className="w-full bg-white rounded-lg shadow border border-border">
-                    <thead>
-                      <tr className="bg-primary text-white">
-                        <th className="py-4 px-6 text-left">Plan</th>
-                        <th className="py-4 px-6 text-center">Single</th>
-                        <th className="py-4 px-6 text-center">Double</th>
-                      </tr>
-                    </thead>
-                    <tbody>
-                      {nonResidentCottageRates.map((rate, i) => (
-                        <tr key={rate.plan} className={i % 2 === 0 ? 'bg-white' : 'bg-muted/20'}>
-                          <td className="py-4 px-6 font-semibold text-foreground">{rate.plan}</td>
-                          <td className="py-4 px-6 text-center text-secondary font-bold">{rate.single}</td>
-                          <td className="py-4 px-6 text-center text-secondary font-bold">{rate.double}</td>
-                        </tr>
-                      ))}
-                    </tbody>
-                  </table>
-                </div>
-                <div className="relative h-96 rounded-lg overflow-hidden">
-                  <Image
-                    src="/cottage.png"
-                    alt="Cottage Accommodation"
-                    fill
-                    className="object-cover"
-                    quality={90}
-                  />
-                </div>
-              </div>
-            </div>
-
-            {/* Standard Tent Section */}
-            <div className="mb-16">
-              <h3 className="text-3xl font-serif font-bold text-foreground mb-6">Standard Tent</h3>
-              <div className="grid lg:grid-cols-2 gap-8 items-start">
-                <div className="overflow-x-auto">
-                  <table className="w-full bg-white rounded-lg shadow border border-border">
-                    <thead>
-                      <tr className="bg-primary text-white">
-                        <th className="py-4 px-6 text-left">Plan</th>
-                        <th className="py-4 px-6 text-center">Single</th>
-                        <th className="py-4 px-6 text-center">Double</th>
-                      </tr>
-                    </thead>
-                    <tbody>
-                      {nonResidentTentRates.map((rate, i) => (
-                        <tr key={rate.plan} className={i % 2 === 0 ? 'bg-white' : 'bg-muted/20'}>
-                          <td className="py-4 px-6 font-semibold text-foreground">{rate.plan}</td>
-                          <td className="py-4 px-6 text-center text-secondary font-bold">{rate.single}</td>
-                          <td className="py-4 px-6 text-center text-secondary font-bold">{rate.double}</td>
-                        </tr>
-                      ))}
-                    </tbody>
-                  </table>
-                </div>
-                <div className="relative h-96 rounded-lg overflow-hidden">
-                  <Image
-                    src="/accomodation.jpeg"
-                    alt="Standard Tent"
-                    fill
-                    className="object-cover"
-                    quality={90}
-                  />
-                </div>
-              </div>
-            </div>
-          </motion.div>
-
-          {/* Child Policy & Agent Commission */}
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            className="mb-24"
-          >
+          <motion.div initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} className="mt-24">
             <h2 className="text-4xl md:text-5xl font-serif font-bold text-foreground mb-12">
               Policies
             </h2>
-            
+
             <div className="grid md:grid-cols-2 gap-12">
               <div className="bg-white p-8 rounded-lg border border-border">
                 <h3 className="text-2xl font-serif font-bold text-foreground mb-6">Child Policy</h3>
@@ -264,11 +211,7 @@ export function AccommodationContent() {
             </div>
           </motion.div>
 
-          {/* Amenities Section */}
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-          >
+          <motion.div initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }}>
             <h2 className="text-4xl md:text-5xl font-serif font-bold text-foreground mb-12 text-center">
               Amenities & Services
             </h2>
