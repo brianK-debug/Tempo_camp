@@ -4,6 +4,7 @@ import { useRef } from 'react'
 import { motion, useInView } from 'framer-motion'
 import Image from 'next/image'
 import { Check } from 'lucide-react'
+import Link from 'next/link'
 
 export function RoomsSection() {
   const ref = useRef(null)
@@ -26,7 +27,7 @@ export function RoomsSection() {
         { plan: 'Half Board', single: 'USD 42', double: 'USD 58' },
         { plan: 'Full Board', single: 'USD 54', double: 'USD 73' },
       ],
-      image: '/cottage.png',
+      image: '/tent-b.jpeg',
       featured: true,
     },
     {
@@ -45,7 +46,7 @@ export function RoomsSection() {
         { plan: 'Half Board', single: 'USD 35', double: 'USD 54' },
         { plan: 'Full Board', single: 'USD 46', double: 'USD 69' },
       ],
-      image: '/camping-2.jpeg',
+      image: '/accomodation.jpeg',
     },
   ]
 
@@ -123,7 +124,6 @@ export function RoomsSection() {
                          <th className="text-left py-1">Plan</th>
                          <th className="text-center py-1">Single</th>
                          <th className="text-center py-1">Double</th>
-                         <th className="text-center py-1">Book Plan</th>
                        </tr>
                      </thead>
                      <tbody>
@@ -132,11 +132,7 @@ export function RoomsSection() {
                            <td className="py-1">{rate.plan}</td>
                            <td className="text-center py-1 text-secondary font-bold">{rate.single}</td>
                            <td className="text-center py-1 text-secondary font-bold">{rate.double}</td>
-                           <td className="py-1 text-center">
-                             <button className="bg-secondary text-foreground px-3 py-1 rounded text-xs font-semibold uppercase tracking-wide hover:bg-secondary/90 transition-colors">
-                               Book Now
-                             </button>
-                           </td>
+                           
                          </tr>
                        ))}
                      </tbody>
@@ -149,7 +145,6 @@ export function RoomsSection() {
                          <th className="text-left py-1">Plan</th>
                          <th className="text-center py-1">Single</th>
                          <th className="text-center py-1">Double</th>
-                         <th className="text-center py-1">Book Plan</th>
                        </tr>
                      </thead>
                      <tbody>
@@ -158,11 +153,7 @@ export function RoomsSection() {
                            <td className="py-1">{rate.plan}</td>
                            <td className="text-center py-1 text-secondary font-bold">{rate.single}</td>
                            <td className="text-center py-1 text-secondary font-bold">{rate.double}</td>
-                           <td className="py-1 text-center">
-                             <button className="bg-secondary text-foreground px-3 py-1 rounded text-xs font-semibold uppercase tracking-wide hover:bg-secondary/90 transition-colors">
-                               Book Now
-                             </button>
-                           </td>
+                           
                          </tr>
                        ))}
                      </tbody>
@@ -188,17 +179,19 @@ export function RoomsSection() {
                   ))}
                 </div>
 
-                <motion.button
-                  whileHover={{ scale: 1.02 }}
-                  whileTap={{ scale: 0.98 }}
-                  className={`w-full py-4 font-semibold uppercase tracking-wide transition-all mt-auto ${
-                    room.featured
-                      ? 'bg-secondary text-foreground hover:bg-secondary/90'
-                      : 'border-2 border-secondary text-secondary hover:bg-secondary hover:text-white'
-                  }`}
-                >
-                  Book Now
-                </motion.button>
+                <Link href="/experiences/accommodation">
+                  <motion.button
+                    whileHover={{ scale: 1.02 }}
+                    whileTap={{ scale: 0.98 }}
+                    className={`w-full py-4 font-semibold uppercase tracking-wide transition-all mt-auto ${
+                      room.featured
+                        ? 'bg-secondary text-foreground hover:bg-secondary/90'
+                        : 'border-2 border-secondary text-secondary hover:bg-secondary hover:text-white'
+                    }`}
+                  >
+                    Book Now
+                  </motion.button>
+                </Link>
               </div>
             </motion.div>
           ))}

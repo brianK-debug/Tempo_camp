@@ -10,7 +10,7 @@ export function ExperiencesContent() {
       title: 'Accommodation & Camping',
       description: 'Sleep under African stars in our luxurious safari tents and suites. World-class amenities with authentic wilderness experience.',
       href: '/experiences/accommodation',
-      image: '/tent-camping.jpg',
+      image: '/tent-a.jpeg',
     },
     {
       title: 'Wildlife & Nature',
@@ -40,7 +40,7 @@ export function ExperiencesContent() {
       title: 'Group Retreats',
       description: 'Transform your team with corporate retreats and group adventures. Team building in the wilderness.',
       href: '/experiences/group',
-      image: '/group-retreat.jpg',
+      image: '/bonfire-1.jpeg',
     },
   ]
 
@@ -49,7 +49,7 @@ export function ExperiencesContent() {
       {/* Hero Section */}
       <section className="relative h-[60vh] md:h-screen overflow-hidden pt-28 md:pt-40">
         <Image
-          src="/hero-samburu.jpg"
+          src="/cheetah-1.jpeg"
           alt="Samburu Experiences"
           fill
           className="object-cover"

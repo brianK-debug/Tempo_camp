@@ -29,17 +29,7 @@ export function CTASection() {
           </p>
 
            <div className="flex flex-col sm:flex-row gap-4 justify-center items-center pt-4">
-             <motion.div
-               whileHover={{ scale: 1.05 }}
-               whileTap={{ scale: 0.95 }}
-             >
-               <Link
-                 href="#contact"
-                 className="inline-block px-10 py-4 bg-secondary text-foreground font-semibold text-lg uppercase tracking-wide hover:bg-secondary/90 transition-colors"
-               >
-                 Reserve Your Stay
-               </Link>
-             </motion.div>
+           
 
              <motion.div
                whileHover={{ scale: 1.05 }}

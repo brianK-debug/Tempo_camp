@@ -7,57 +7,70 @@ import { motion, AnimatePresence } from 'framer-motion'
 
 const galleryImages = [
   {
-    src: '/tent-camping.jpg',
-    alt: 'Luxury Safari Tent',
+    src: '/nights-1.jpeg',
+    alt: 'Samburu Camp at Night',
+    title: 'Campfire Evenings',
+    description: 'Experience peaceful nights under the African stars',
+  },
+  {
+    src: '/night-3.jpeg',
+    alt: 'Luxury Tent at Night',
+    title: 'Nighttime Serenity',
+    description: 'Enjoy a tranquil stay in our illuminated safari camp',
+  },
+  {
+    src: '/tent-a.jpeg',
+    alt: 'Luxury Safari Tent in Samburu',
     title: 'Luxury Accommodation',
-    description: 'Premium camping under African stars',
+    description: 'Comfortable safari tents surrounded by nature',
   },
   {
-    src: '/safari-jeep.jpg',
-    alt: 'Safari Wildlife Viewing',
-    title: 'Wildlife Safaris',
-    description: 'Encounter the Big Five in their natural habitat',
+    src: '/hill.jpeg',
+    alt: 'Scenic Samburu Hills',
+    title: 'Breathtaking Landscapes',
+    description: 'Discover stunning views of Samburu’s rugged terrain',
   },
   {
-    src: '/luxury-bedroom.jpg',
-    alt: 'Luxury Lodge Bedroom',
-    title: 'Premium Rooms',
-    description: 'World-class accommodation with a view',
+    src: '/swamp.jpeg',
+    alt: 'Samburu Wetland and Wildlife Habitat',
+    title: 'Natural Wetlands',
+    description: 'Explore the rich biodiversity of Samburu wetlands',
   },
   {
-    src: '/swimmingpool-1.jpeg',
-    alt: 'Resort Swimming Pool',
-    title: 'Swimming & Recreation',
-    description: 'Relax by our infinity pool',
+    src: '/gazelle.jpeg',
+    alt: 'Gazelle in Samburu National Reserve',
+    title: 'Wildlife Encounters',
+    description: 'Observe graceful gazelles in their natural habitat',
   },
   {
-    src: '/cultural-visit.jpg',
-    alt: 'Samburu Cultural Experience',
-    title: 'Cultural Immersion',
-    description: 'Connect with authentic Samburu traditions',
+    src: '/elephant.jpeg',
+    alt: 'African Elephant in Samburu',
+    title: 'Majestic Elephants',
+    description: 'Get close to Samburu’s iconic elephant herds',
   },
   {
-    src: '/family-safari.jpg',
-    alt: 'Family Safari Adventure',
-    title: 'Family Adventures',
-    description: 'Create memories that last a lifetime',
+    src: '/cheetah-1.jpeg',
+    alt: 'Cheetah Resting in Samburu',
+    title: 'Predators of Samburu',
+    description: 'Witness the speed and beauty of the cheetah',
   },
   {
-    src: '/spa-wellness.jpg',
-    alt: 'Spa & Wellness',
-    title: 'Rejuvenation',
-    description: 'Premium spa and wellness treatments',
+    src: '/girrafe-3.jpeg',
+    alt: 'Reticulated Giraffe in Samburu',
+    title: 'Unique Wildlife',
+    description: 'Meet the famous reticulated giraffes of northern Kenya',
   },
   {
-    src: '/landscape-aerial.jpg',
-    alt: 'Samburu Landscape',
-    title: 'Natural Beauty',
-    description: 'Stunning African wilderness views',
+    src: '/cheetah.jpeg',
+    alt: 'Cheetah on Safari in Samburu',
+    title: 'Safari Adventures',
+    description: 'Experience thrilling wildlife sightings during your safari',
   },
-]
+];
 
 export function GallerySlider() {
   const [current, setCurrent] = useState(0)
+  const [direction, setDirection] = useState(0)
   const [autoplay, setAutoplay] = useState(true)
 
   useEffect(() => {
@@ -71,11 +84,13 @@ export function GallerySlider() {
   }, [autoplay])
 
   const goToNext = () => {
+    setDirection(1)
     setCurrent((prev) => (prev + 1) % galleryImages.length)
     setAutoplay(false)
   }
 
   const goToPrev = () => {
+    setDirection(-1)
     setCurrent((prev) => (prev - 1 + galleryImages.length) % galleryImages.length)
     setAutoplay(false)
   }
@@ -99,13 +114,14 @@ export function GallerySlider() {
 
         {/* Main Slider */}
         <div className="relative h-96 md:h-[500px] overflow-hidden rounded-2xl group">
-          <AnimatePresence mode="wait">
+          <AnimatePresence mode="wait" custom={direction}>
             <motion.div
               key={current}
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              exit={{ opacity: 0 }}
-              transition={{ duration: 0.5 }}
+              custom={direction}
+              initial={{ x: direction > 0 ? '100%' : '-100%', opacity: 0 }}
+              animate={{ x: 0, opacity: 1 }}
+              exit={{ x: direction > 0 ? '-100%' : '100%', opacity: 0 }}
+              transition={{ duration: 0.5, ease: 'easeInOut' }}
               className="absolute inset-0"
             >
               <Image
@@ -195,17 +211,6 @@ export function GallerySlider() {
           ))}
         </div>
 
-        {/* Resume Autoplay */}
-        {!autoplay && (
-          <div className="mt-8 text-center">
-            <button
-              onClick={() => setAutoplay(true)}
-              className="px-6 py-2 bg-white/10 hover:bg-white/20 text-white text-sm rounded-lg transition-colors"
-            >
-              Resume Autoplay
-            </button>
-          </div>
-        )}
       </div>
     </section>
   )

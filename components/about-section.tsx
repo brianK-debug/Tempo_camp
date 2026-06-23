@@ -4,16 +4,16 @@ import { useRef } from 'react'
 import { motion, useInView } from 'framer-motion'
 import Image from 'next/image'
 
+const values = [
+  { title: 'Luxury', description: 'World-class amenities and uncompromising comfort' },
+  { title: 'Sustainability', description: 'Carbon-neutral operations and conservation-focused practices' },
+  { title: 'Authenticity', description: 'Genuine African experiences and cultural immersion' },
+  { title: 'Excellence', description: 'Impeccable service standards and attention to detail' },
+]
+
 export function AboutSection() {
   const ref = useRef(null)
   const isInView = useInView(ref, { once: true, margin: '-100px' })
-
-  const values = [
-    { title: 'Luxury', description: 'World-class amenities and uncompromising comfort' },
-    { title: 'Sustainability', description: 'Carbon-neutral operations and conservation-focused practices' },
-    { title: 'Authenticity', description: 'Genuine African experiences and cultural immersion' },
-    { title: 'Excellence', description: 'Impeccable service standards and attention to detail' },
-  ]
 
   return (
     <section id="about" ref={ref} className="py-8 md:py-16 bg-background">
@@ -40,13 +40,15 @@ export function AboutSection() {
             transition={{ duration: 0.8 }}
             className="relative h-96 md:h-[500px]"
           >
-            <Image
-              src="/tent-camping.jpg"
-              alt="Samburu Tempo luxury accommodation"
-              fill
-              className="object-cover"
-              quality={85}
-            />
+            <div className="relative h-full overflow-hidden rounded-lg">
+              <Image
+                src="/accomodation.jpeg"
+                alt="Accommodation"
+                fill
+                className="object-cover"
+                quality={85}
+              />
+            </div>
           </motion.div>
 
           {/* Content */}

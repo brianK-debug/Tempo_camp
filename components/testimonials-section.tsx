@@ -10,8 +10,8 @@ export function TestimonialsSection() {
 
   const testimonials = [
     {
-      name: 'Sarah & Michael Johnson',
-      location: 'New York, USA',
+      name: 'Brian Mwangi and crew',
+      location: 'Kenya',
       quote: 'Samburu Tempo exceeded every expectation. The guides are incredibly knowledgeable, and the commitment to sustainability is inspiring. A truly transformative experience.',
       rating: 5,
     },
@@ -22,8 +22,8 @@ export function TestimonialsSection() {
       rating: 5,
     },
     {
-      name: 'Dr. James Chen',
-      location: 'Singapore',
+      name: 'Edward Wesley',
+      location: 'Kenya',
       quote: 'As a frequent luxury traveler, I was impressed by the authentic approach to conservation. This isn\'t just a resort—it\'s a living model of responsible tourism.',
       rating: 5,
     },

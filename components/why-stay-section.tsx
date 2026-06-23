@@ -29,6 +29,12 @@ export function WhyStaySection() {
   ]
 
   const sliderImages = [
+    '/meets-2.jpeg',
+    '/meets-1.jpeg',
+    '/bonfire-1.jpeg',
+    '/night-3.jpeg',
+    '/swimmingpool-2.jpeg',
+    '/camping-3.jpeg',
     '/tent-a.jpeg',
     '/tent-b.jpeg',
   ]

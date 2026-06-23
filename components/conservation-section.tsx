@@ -12,13 +12,13 @@ export function ConservationSection() {
   const impacts = [
     {
       icon: Trees,
-      metric: '50,000+',
+      metric: '15,000+',
       label: 'Trees Conserved',
       description: 'Active habitat restoration and reforestation initiatives',
     },
     {
       icon: Users,
-      metric: '200+',
+      metric: '100+',
       label: 'Local Employment',
       description: 'Direct jobs supporting local communities',
     },
@@ -65,7 +65,7 @@ export function ConservationSection() {
             className="relative h-80 md:h-96"
           >
             <Image
-              src="/conservation-impact.jpg"
+              src="/elephant-1.jpeg"
               alt="Community impact and conservation initiatives"
               fill
               className="object-cover"
