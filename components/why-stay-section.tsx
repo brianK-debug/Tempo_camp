@@ -29,17 +29,8 @@ export function WhyStaySection() {
   ]
 
   const sliderImages = [
-    '/grass.jpeg',
-    '/tent-2.jpeg',
-    '/camping-1.jpeg',
-    '/camping-2.jpeg',
-    '/camping-4.jpeg',
-    '/meets-3.jpeg',
-    '/bonfire-2.jpeg',
-    '/night-2.jpeg',
-    '/nights-1.jpeg',
-    '/meets-4.jpeg',
-    '/swimmingpool-2.jpeg',
+    '/tent-a.jpeg',
+    '/tent-b.jpeg',
   ]
 
   useEffect(() => {

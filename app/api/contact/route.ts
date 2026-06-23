@@ -27,7 +27,7 @@ export async function POST(request: Request) {
     // Email options
     const mailOptions = {
       from: `"${name}" <${email}>`,
-      to: 'sales@samburutempocamp.co.ke',
+      to: 'samburutempocamp@gmail.com',
       subject: `Inquiry: ${subject}`,
       text: `
         Name: ${name}
@@ -54,10 +54,13 @@ export async function POST(request: Request) {
       { success: true, message: 'Email sent successfully' },
       { status: 200 }
     );
-  } catch (error) {
+  } catch (error: any) {
     console.error('Error sending email:', error);
+    const message = error?.code === 'EAUTH'
+      ? 'Email service not configured. Please contact us directly at samburutempocamp@gmail.com'
+      : 'Failed to send email';
     return NextResponse.json(
-      { error: 'Failed to send email' },
+      { error: message },
       { status: 500 }
     );
   }

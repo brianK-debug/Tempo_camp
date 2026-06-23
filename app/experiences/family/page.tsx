@@ -28,7 +28,7 @@ export default function FamilyPage() {
       <Navigation />
       
       {/* Hero */}
-      <section className="relative h-96 md:h-[500px] overflow-hidden pt-32 md:pt-40">
+      <section className="relative h-[60vh] md:h-screen overflow-hidden pt-28 md:pt-40">
         <Image
           src="/family-safari.jpg"
           alt="Family Safari"

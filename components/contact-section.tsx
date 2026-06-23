@@ -3,15 +3,17 @@
 import { useRef, useState } from 'react'
 import { motion, useInView } from 'framer-motion'
 import { Mail, Phone, MapPin } from 'lucide-react'
+import { useToast } from '@/hooks/use-toast'
 
 export function ContactSection() {
   const ref = useRef(null)
   const isInView = useInView(ref, { once: true, margin: '-100px' })
   const [formState, setFormState] = useState({ name: '', email: '', subject: '', message: '' })
+  const { toast } = useToast()
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
-    
+
     try {
       const response = await fetch('/api/contact', {
         method: 'POST',
@@ -20,19 +22,30 @@ export function ContactSection() {
         },
         body: JSON.stringify(formState),
       })
-      
+
       const data = await response.json()
-      
+
       if (response.ok) {
-        alert('Message sent successfully!')
-        // Reset form
+        toast({
+          title: 'Message sent successfully!',
+          description: "We'll get back to you shortly.",
+          variant: 'default',
+        })
         setFormState({ name: '', email: '', subject: '', message: '' })
       } else {
-        alert(data.error || 'Failed to send message')
+        toast({
+          title: 'Failed to send message',
+          description: data.error || 'Please try again later.',
+          variant: 'destructive',
+        })
       }
     } catch (error) {
       console.error('Error:', error)
-      alert('An error occurred while sending the message')
+      toast({
+        title: 'Error sending message',
+        description: 'An unexpected error occurred. Please try again.',
+        variant: 'destructive',
+      })
     }
   }
 
@@ -46,16 +59,13 @@ export function ContactSection() {
     {
       icon: Mail,
       label: 'Email',
-      values: [
-        { text: 'Info', email: 'info@samburutempocamp.co.ke' },
-        { text: 'Sales', email: 'sales@samburutempocamp.co.ke' },
-        { text: 'Admin', email: 'admin@samburutempocamp.co.ke' },
-      ],
+      value: 'samburutempocamp@gmail.com',
+      link: 'mailto:samburutempocamp@gmail.com',
     },
     {
       icon: MapPin,
       label: 'Location',
-      value: 'Archer\'s Post, Near Samburu National Reserve, Kenya',
+      value: "Archer's Post, Near Samburu National Reserve, Kenya",
       link: '#',
     },
   ]
@@ -104,19 +114,6 @@ export function ContactSection() {
                         >
                           {info.value}
                         </a>
-                      )}
-                      {'values' in info && (
-                        <div className="space-y-2">
-                          {info.values?.map((v, i) => (
-                            <a
-                              key={i}
-                              href={`mailto:${v.email}`}
-                              className="flex items-center gap-2 text-foreground/80 hover:text-secondary transition-colors font-light"
-                            >
-                              <span className="text-secondary font-medium">{v.text}:</span> {v.email}
-                            </a>
-                          ))}
-                        </div>
                       )}
                     </div>
                   </div>

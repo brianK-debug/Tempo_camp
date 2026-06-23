@@ -1,40 +1,48 @@
 'use client'
 
 import { useRef, useState, useEffect } from 'react'
-import { motion, useInView, AnimatePresence } from 'framer-motion'
+import { motion, useInView } from 'framer-motion'
 import Image from 'next/image'
 import { ArrowRight } from 'lucide-react'
 
-function ImageSlider({ images, alt }: { images: string[], alt: string }) {
-  const [currentSlide, setCurrentSlide] = useState(0)
+export function ImageSlider({ images, alt, className = 'h-80 md:h-96' }: { images: string[], alt: string, className?: string }) {
+  const offset = useRef(Math.floor(Math.random() * images.length)).current
+  const [currentSlide, setCurrentSlide] = useState(offset)
+  const intervalRef = useRef<number | null>(null)
 
   useEffect(() => {
-    const interval = setInterval(() => {
+    const baseDuration = 4000
+    const jitter = Math.floor(Math.random() * 1500) - 750
+    intervalRef.current = window.setInterval(() => {
       setCurrentSlide((prev) => (prev + 1) % images.length)
-    }, 4000)
-    return () => clearInterval(interval)
+    }, baseDuration + jitter)
+    return () => {
+      if (intervalRef.current) window.clearInterval(intervalRef.current)
+    }
   }, [images.length])
 
+  useEffect(() => {
+    setCurrentSlide(offset)
+  }, [offset])
+
   return (
-    <div className="relative h-80 md:h-96 overflow-hidden group">
-      <AnimatePresence mode="wait">
+    <div className={`relative ${className} overflow-hidden group`}>
+      {images.map((src, idx) => (
         <motion.div
-          key={currentSlide}
-          initial={{ opacity: 0, scale: 1.05 }}
-          animate={{ opacity: 1, scale: 1 }}
-          exit={{ opacity: 0, scale: 0.95 }}
-          transition={{ duration: 0.7, ease: 'easeInOut' }}
+          key={src}
+          animate={{ opacity: idx === currentSlide ? 1 : 0 }}
+          transition={{ duration: 0.8, ease: 'easeInOut' }}
           className="absolute inset-0"
         >
           <Image
-            src={images[currentSlide]}
-            alt={alt}
+            src={src}
+            alt={idx === currentSlide ? alt : `${alt} ${idx + 1}`}
             fill
             className="object-cover group-hover:scale-105 transition-transform duration-700"
             quality={85}
           />
         </motion.div>
-      </AnimatePresence>
+      ))}
     </div>
   )
 }
@@ -47,8 +55,8 @@ export function ExperiencesSection() {
     {
       title: 'Safari Expeditions',
       description: 'Guided game drives through pristine wilderness with expert naturalists, tracking the Big Five and rare species.',
-      images: ['/safari-jeep.jpg', '/gallery-2.jpg', '/family-safari.jpg', '/gallery-4.jpg'],
-      highlights: ['Early morning drives', 'Night safaris', 'Walking expeditions'],
+      images: ['/cheetah.jpeg', '/elephant-2.jpeg', '/gazelle.jpeg', '/jackal.jpeg'],
+      highlights: ['Reticulated Giraffe', "Grevy's Zebra", 'Beisa Oryx', 'Gerenuk', 'Somali Ostrich'],
     },
     {
       title: 'Gourmet Dining',
@@ -60,7 +68,7 @@ export function ExperiencesSection() {
       title: 'Sunrise & Sunset Experiences',
       description: 'Witness breathtaking African sunrises and magical sunset moments around bonfires, creating unforgettable memories in the wild.',
       highlights: ['Golden sunrise views', 'Bonfire gatherings', 'Stargazing sessions'],
-      images: ['/accomodation.jpeg', '/swimming-pool.jpg', '/bonfire-2.jpeg', '/meets-2.jpeg', '/gallery-3.jpg'],
+      images: ['/swimming.jpeg', '/swimmingpool-2.jpeg'],
     },
   ]
 

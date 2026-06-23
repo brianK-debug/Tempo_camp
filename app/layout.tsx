@@ -4,6 +4,7 @@ import { Analytics } from '@vercel/analytics/next'
 import { ScrollProvider } from '@/components/scroll-provider'
 import { WhatsAppButton } from '@/components/whatsapp-button'
 import { StructuredData } from '@/components/structured-data'
+import { Toaster } from '@/components/ui/toaster'
 import './globals.css'
 
 const crimsonText = Crimson_Text({
@@ -52,18 +53,17 @@ export const metadata: Metadata = {
   robots: 'index, follow',
   icons: {
     icon: [
-      {
-        url: '/logo.png',
-        sizes: '32x32',
-        type: 'image/png',
-      },
-      {
-        url: '/logo.png',
-        sizes: '48x48',
-        type: 'image/png',
-      },
+      { url: '/logo.png', sizes: '32x32', type: 'image/png' },
+      { url: '/logo.png', sizes: '48x48', type: 'image/png' },
+      { url: '/logo.png', sizes: '96x96', type: 'image/png' },
+      { url: '/logo.png', sizes: '192x192', type: 'image/png' },
     ],
-    apple: '/apple-icon.png',
+    apple: [
+      { url: '/apple-icon.png', sizes: '180x180', type: 'image/png' },
+    ],
+    other: [
+      { rel: 'manifest', url: '/manifest.webmanifest' },
+    ],
   },
 }
 
@@ -78,6 +78,7 @@ export default function RootLayout({
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         <meta name="theme-color" content="#2d5a4d" />
         <link rel="alternate" hrefLang="en" href="https://samburutempocamp.co.ke" />
+        <link rel="manifest" href="/manifest.webmanifest" />
       </head>
       <body className={`${inter.variable} ${crimsonText.variable} font-sans antialiased`}>
         <StructuredData />
@@ -85,6 +86,7 @@ export default function RootLayout({
           {children}
           <WhatsAppButton />
         </ScrollProvider>
+        <Toaster />
         {process.env.NODE_ENV === 'production' && <Analytics />}
       </body>
     </html>

@@ -21,9 +21,9 @@ export default function AboutPage() {
       <Navigation />
       
       {/* Hero Section */}
-      <section className="relative h-96 md:h-[500px] overflow-hidden pt-32 md:pt-40">
+      <section className="relative h-[60vh] md:h-screen overflow-hidden pt-28 md:pt-40">
         <Image
-          src="/about-hero.jpg"
+          src="/hero-samburu.jpg"
           alt="About Samburu Tempo Camp"
           fill
           className="object-cover"

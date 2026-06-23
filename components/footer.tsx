@@ -51,11 +51,11 @@ export function Footer() {
                 <span>+254 712 875 127</span>
               </a>
               <a
-                href="mailto:reservations@samburutempo.com"
+                href="mailto:samburutempocamp@gmail.com"
                 className="flex items-center gap-3 text-background/80 hover:text-secondary transition-colors text-sm"
               >
                 <Mail className="w-5 h-5 flex-shrink-0" />
-                <span>reservations@samburutempo.com</span>
+                <span>samburutempocamp@gmail.com</span>
               </a>
               <div className="flex items-center gap-3 text-background/80 text-sm">
                 <MapPin className="w-5 h-5 flex-shrink-0" />

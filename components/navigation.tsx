@@ -1,10 +1,10 @@
 'use client'
 
 import Link from 'next/link'
-import Image from 'next/image'
 import { useState, useEffect } from 'react'
-import { Menu, X } from 'lucide-react'
 import { motion, AnimatePresence } from 'framer-motion'
+import Image from 'next/image'
+import { Menu, X } from 'lucide-react'
 
 export function Navigation() {
   const [isOpen, setIsOpen] = useState(false)
@@ -59,15 +59,15 @@ export function Navigation() {
             ))}
           </div>
 
-          {/* Right Side - CTA Button */}
-          <div className="hidden lg:flex items-center gap-6">
-            <Link
-              href="/#contact"
-              className="px-6 py-2.5 bg-secondary text-foreground text-sm font-semibold hover:shadow-lg transition-all duration-300"
-            >
-              Reserve
-            </Link>
-          </div>
+           {/* Right Side - CTA Button */}
+           <div className="hidden lg:flex items-center gap-6">
+              <Link
+                href="/experiences/accommodation"
+                className="px-6 py-2.5 bg-secondary text-foreground text-sm font-semibold hover:shadow-lg transition-all duration-300"
+              >
+                Reserve
+              </Link>
+            </div>
 
           {/* Mobile Menu Button */}
           <button
@@ -101,14 +101,14 @@ export function Navigation() {
                   {link.label}
                 </Link>
               ))}
-              <div className="h-px bg-border my-4" />
-              <Link
-                href="/#contact"
-                className="block w-full py-3 bg-secondary text-foreground text-center text-sm font-semibold hover:shadow-lg transition-all"
-                onClick={() => setIsOpen(false)}
-              >
-                Reserve Now
-              </Link>
+               <div className="h-px bg-border my-4" />
+                <Link
+                  href="/experiences/accommodation"
+                  className="block w-full py-3 bg-secondary text-foreground text-center text-sm font-semibold hover:shadow-lg transition-all"
+                  onClick={() => setIsOpen(false)}
+                >
+                  Reserve Now
+                </Link>
             </div>
           </motion.div>
         )}

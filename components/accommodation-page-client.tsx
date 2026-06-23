@@ -47,7 +47,7 @@ export function AccommodationPageClient() {
 
       {/* Single / Double confirmation */}
       <Dialog open={!!pendingBooking} onOpenChange={(open) => { if (!open) setPendingBooking(null) }}>
-        <DialogContent className="!max-w-none !w-auto sm:max-w-md bg-white">
+        <DialogContent onWheel={(e) => e.stopPropagation()} className="!max-w-none !w-auto sm:max-w-md max-h-[60vh] md:max-h-[70vh] overflow-y-auto bg-white">
           <DialogHeader>
             <DialogTitle className="text-foreground font-serif">Select Occupancy</DialogTitle>
           </DialogHeader>

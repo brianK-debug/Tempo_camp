@@ -1,7 +1,10 @@
 'use client'
 
+import { useRef } from 'react'
+import { motion, useInView } from 'framer-motion'
 import Image from 'next/image'
-import { motion } from 'framer-motion'
+import { Check } from 'lucide-react'
+import { ImageSlider } from '@/components/experiences-section'
 
 export function WildlifeContent() {
   const safariTypes = [
@@ -80,16 +83,12 @@ export function WildlifeContent() {
   return (
     <>
       {/* Hero */}
-      <section className="relative h-96 md:h-[500px] overflow-hidden pt-32 md:pt-40">
-        <Image
-          src="/safari-jeep.jpg"
-          alt="Safari Experience"
-          fill
-          className="object-cover"
-          quality={90}
-        />
-        <div className="absolute inset-0 bg-black/40" />
-        <div className="relative h-full flex items-center justify-center px-6">
+      <section className="relative h-[60vh] md:h-screen overflow-hidden pt-28 md:pt-40">
+        <div className="absolute inset-0 z-0">
+          <ImageSlider images={['/cheetah.jpeg', '/elephant.jpeg', '/jackal.jpeg', '/gazelle.jpeg', '/elephant-2.jpeg']} alt="Wildlife" className="h-full w-full" />
+        </div>
+        <div className="absolute inset-0 z-10 bg-black/40" />
+        <div className="relative z-20 h-full flex items-center justify-center px-6">
           <div className="text-center text-white max-w-3xl">
             <h1 className="text-5xl md:text-7xl font-serif font-bold mb-4">Wildlife & Nature</h1>
             <p className="text-xl md:text-2xl font-light">Epic Safari Adventures with Expert Guides</p>
