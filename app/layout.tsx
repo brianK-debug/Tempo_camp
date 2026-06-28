@@ -19,54 +19,100 @@ const inter = Inter({
 });
 
 export const metadata: Metadata = {
+  metadataBase: new URL('https://www.samburutempocamp.co.ke'),
+
   title: 'Samburu Tempo Camp | Luxury Eco-Tourism & Safari Lodge in Kenya',
-  description: 'Experience world-class luxury eco-tourism at Samburu Tempo Camp. Sustainable hospitality, authentic cultural experiences, and unforgettable African safari adventures near Samburu National Reserve.',
-  keywords: 'luxury safari lodge Kenya, eco-tourism, sustainable travel, Samburu National Reserve, luxury accommodation Kenya, safari experiences, cultural immersion',
-  authors: [{ name: 'Samburu Tempo Camp' }],
+
+  description:
+    'Experience world-class luxury eco-tourism at Samburu Tempo Camp. Sustainable hospitality, authentic cultural experiences, and unforgettable African safari adventures near Samburu National Reserve.',
+
+  keywords: [
+    'luxury safari lodge Kenya',
+    'eco-tourism',
+    'sustainable travel',
+    'Samburu National Reserve',
+    'luxury accommodation Kenya',
+    'Kenya safari',
+    'Samburu safari',
+    'eco lodge Kenya',
+    'cultural experiences',
+  ],
+
+  authors: [
+    {
+      name: 'Samburu Tempo Camp',
+    },
+  ],
+
   creator: 'Samburu Tempo Camp',
   publisher: 'Samburu Tempo Camp',
   generator: 'Next.js',
+
+  robots: {
+    index: true,
+    follow: true,
+    googleBot: {
+      index: true,
+      follow: true,
+      'max-image-preview': 'large',
+      'max-snippet': -1,
+      'max-video-preview': -1,
+    },
+  },
+
   openGraph: {
     type: 'website',
     locale: 'en_US',
-    url: 'https://samburutempocamp.co.ke',
+    url: 'https://www.samburutempocamp.co.ke',
     siteName: 'Samburu Tempo Camp',
     title: 'Samburu Tempo Camp | Luxury Eco-Tourism in Kenya',
-    description: 'Experience world-class luxury eco-tourism at Samburu Tempo Camp, combining sustainable hospitality with unforgettable African safari adventures.',
+    description:
+      'Experience world-class luxury eco-tourism at Samburu Tempo Camp, combining sustainable hospitality with unforgettable African safari adventures.',
+
     images: [
       {
-        url: 'https://samburutempocamp.co.ke/hero-samburu.jpg',
+        url: '/hero-samburu.jpg',
         width: 1200,
         height: 630,
         alt: 'Samburu Tempo Camp Luxury Safari Lodge',
-        type: 'image/jpeg',
       },
     ],
   },
+
   twitter: {
     card: 'summary_large_image',
     title: 'Samburu Tempo Camp | Luxury Eco-Tourism in Kenya',
-    description: 'Experience world-class luxury eco-tourism at Samburu Tempo Camp',
-    images: ['https://samburutempocamp.co.ke/hero-samburu.jpg'],
-    creator: '@samburutempocamp',
+    description:
+      'Experience world-class luxury eco-tourism at Samburu Tempo Camp.',
+
+    images: ['/hero-samburu.jpg'],
   },
-  robots: 'index, follow',
+
   icons: {
     icon: [
-      { url: '/logo.png', sizes: '32x32', type: 'image/png' },
-      { url: '/logo.png', sizes: '48x48', type: 'image/png' },
-      { url: '/logo.png', sizes: '96x96', type: 'image/png' },
-      { url: '/logo.png', sizes: '192x192', type: 'image/png' },
+      {
+        url: '/favicon.ico',
+        sizes: 'any',
+      },
+      {
+        url: '/icon.svg',
+        type: 'image/svg+xml',
+      },
     ],
+
+    shortcut: ['/favicon.ico'],
+
     apple: [
-      { url: '/apple-icon.png', sizes: '180x180', type: 'image/png' },
-    ],
-    other: [
-      { rel: 'manifest', url: '/manifest.webmanifest' },
+      {
+        url: '/apple-icon.png',
+        sizes: '180x180',
+        type: 'image/png',
+      },
     ],
   },
-}
 
+  manifest: '/manifest.webmanifest',
+}
 export default function RootLayout({
   children,
 }: Readonly<{
@@ -77,8 +123,11 @@ export default function RootLayout({
       <head>
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         <meta name="theme-color" content="#2d5a4d" />
-        <link rel="alternate" hrefLang="en" href="https://samburutempocamp.co.ke" />
-        <link rel="manifest" href="/manifest.webmanifest" />
+        <link
+          rel="alternate"
+          hrefLang="en"
+          href="https://www.samburutempocamp.co.ke"
+        />
       </head>
       <body className={`${inter.variable} ${crimsonText.variable} font-sans antialiased`}>
         <StructuredData />
