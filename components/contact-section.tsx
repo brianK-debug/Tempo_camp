@@ -59,14 +59,16 @@ export function ContactSection() {
     {
       icon: Mail,
       label: 'Email',
-      value: 'info@samburutempocamp.co.ke',
-      link: 'mailto:info@samburutempocamp.co.ke',
+      emails: [
+        { value: 'info@samburutempocamp.co.ke', link: 'mailto:info@samburutempocamp.co.ke' },
+        { value: 'sales@samburutempocamp.co.ke', link: 'mailto:sales@samburutempocamp.co.ke' },
+        { value: 'boscokialai@samburutempocamp.co.ke', link: 'mailto:boscokialai@samburutempocamp.co.ke' },
+      ],
     },
     {
       icon: MapPin,
       label: 'Location',
-      value: "Archer's Post, Near Samburu National Reserve, Kenya",
-      link: '#',
+      embed: 'https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3989.766146580845!2d37.6458137!3d0.6279478!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x1788edb74225bcbf%3A0xa3a6808e2afae577!2sSamburu%20Tempo%20Camp!5e0!3m2!1sen!2ske!4v1719660000000!5m2!1sen!2ske',
     },
   ]
 
@@ -107,13 +109,39 @@ export function ContactSection() {
                     </div>
                     <div>
                       <h3 className="text-lg font-serif font-semibold text-foreground mb-3">{info.label}</h3>
-                      {'value' in info && (
-                        <a
-                          href={info.link}
-                          className="text-lg text-foreground/80 hover:text-secondary transition-colors font-light"
-                        >
-                          {info.value}
-                        </a>
+                      {'emails' in info && Array.isArray(info.emails) ? (
+                        <div className="space-y-2">
+                          {info.emails.map((email, emailIdx) => (
+                            <a
+                              key={emailIdx}
+                              href={email.link}
+                              className="block text-foreground/80 hover:text-secondary transition-colors font-light"
+                            >
+                              {email.value}
+                            </a>
+                          ))}
+                        </div>
+                      ) : (
+                        <>
+                          {'value' in info && !('embed' in info) && (
+                            <a
+                              href={info.link}
+                              className="text-lg text-foreground/80 hover:text-secondary transition-colors font-light"
+                            >
+                              {info.value}
+                            </a>
+                          )}
+                          {'embed' in info && (
+                            <iframe
+                              src={info.embed}
+                              className="w-[150%] h-72 rounded-lg border border-border mt-2"
+                              style={{ border: 0 }}
+                              allowFullScreen
+                              loading="lazy"
+                              referrerPolicy="no-referrer-when-downgrade"
+                            />
+                          )}
+                        </>
                       )}
                     </div>
                   </div>
