@@ -29,7 +29,7 @@ export function ContactSection() {
         toast({
           title: 'Message sent successfully!',
           description: "We'll get back to you shortly.",
-          variant: 'default',
+          variant: 'success',
         })
         setFormState({ name: '', email: '', subject: '', message: '' })
       } else {

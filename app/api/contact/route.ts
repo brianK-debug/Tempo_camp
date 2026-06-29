@@ -25,9 +25,18 @@ export async function POST(request: Request) {
     });
 
     // Email options
+    const to = (process.env.EMAIL_TO || process.env.EMAIL_USER || '').split(',').map(e => e.trim()).filter(Boolean)
+
+    if (!to.length) {
+      return NextResponse.json(
+        { error: 'Email service not configured' },
+        { status: 500 }
+      )
+    }
+
     const mailOptions = {
       from: process.env.EMAIL_FROM || `"${name}" <${email}>`,
-      to: process.env.EMAIL_TO || process.env.EMAIL_USER || 'samburutempocamp@gmail.com',
+      to,
       subject: `Inquiry: ${subject}`,
       text: `
         Name: ${name}
