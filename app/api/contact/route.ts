@@ -15,19 +15,19 @@ export async function POST(request: Request) {
 
     // Create transporter
     const transporter = nodemailer.createTransport({
-      host: 'smtp.gmail.com', // You can configure this based on your email provider
-      port: 587,
-      secure: false,
+      host: process.env.EMAIL_HOST || 'smtp.gmail.com',
+      port: parseInt(process.env.EMAIL_PORT || '587'),
+      secure: process.env.EMAIL_SECURE === 'true',
       auth: {
-        user: process.env.EMAIL_USER, // Set these in your .env.local file
+        user: process.env.EMAIL_USER,
         pass: process.env.EMAIL_PASS,
       },
     });
 
     // Email options
     const mailOptions = {
-      from: `"${name}" <${email}>`,
-      to: 'samburutempocamp@gmail.com',
+      from: process.env.EMAIL_FROM || `"${name}" <${email}>`,
+      to: process.env.EMAIL_TO || process.env.EMAIL_USER || 'samburutempocamp@gmail.com',
       subject: `Inquiry: ${subject}`,
       text: `
         Name: ${name}
@@ -57,7 +57,7 @@ export async function POST(request: Request) {
   } catch (error: any) {
     console.error('Error sending email:', error);
     const message = error?.code === 'EAUTH'
-      ? 'Email service not configured. Please contact us directly at samburutempocamp@gmail.com'
+      ? 'Email service not configured. Please contact us directly.'
       : 'Failed to send email';
     return NextResponse.json(
       { error: message },

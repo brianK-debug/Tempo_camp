@@ -59,8 +59,8 @@ export function ContactSection() {
     {
       icon: Mail,
       label: 'Email',
-      value: 'samburutempocamp@gmail.com',
-      link: 'mailto:samburutempocamp@gmail.com',
+      value: 'info@samburutempocamp.co.ke',
+      link: 'mailto:info@samburutempocamp.co.ke',
     },
     {
       icon: MapPin,
