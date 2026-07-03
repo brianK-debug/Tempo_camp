@@ -4,7 +4,7 @@ import Image from 'next/image'
 import { motion } from 'framer-motion'
 import { Check } from 'lucide-react'
 
-type OnBookNow = (data: { accommodation: string; rateType: string; ratePlan: string; singlePrice: string; doublePrice: string }) => void
+type OnBookNow = (data: { accommodation: string; rateType: string; ratePlan: string; singlePrice: string; doublePrice?: string; image?: string; skipOccupancy?: boolean }) => void
 
 export function AccommodationContent({ onBookNow }: { onBookNow?: OnBookNow } = {}) {
   const residentCottageRates = [
@@ -55,6 +55,14 @@ export function AccommodationContent({ onBookNow }: { onBookNow?: OnBookNow } = 
       nonResidentRates: nonResidentTentRates,
       src: '/accomodation.jpeg',
       alt: 'Standard Tent',
+    },
+{
+      title: 'Camping Ground',
+      residentRates: [{ plan: 'Day Use', single: 'Ksh 1,000', double: 'Ksh 1,000' }],
+      nonResidentRates: [{ plan: 'Day Use', single: 'USD 20', double: 'USD 20' }],
+      src: '/tent-2.jpeg',
+      alt: 'Camping Ground',
+      skipOccupancy: true,
     },
   ]
 
@@ -115,12 +123,12 @@ export function AccommodationContent({ onBookNow }: { onBookNow?: OnBookNow } = 
                               <td className="py-2 md:py-3 px-3 md:px-4 text-center text-secondary font-bold text-xs md:text-sm">{rate.single}</td>
                               <td className="py-2 md:py-3 px-3 md:px-4 text-center text-secondary font-bold text-xs md:text-sm">{rate.double}</td>
                               <td className="py-2 md:py-3 px-3 md:px-4 text-center">
-                                <button
-                                  onClick={() => onBookNow?.({ accommodation: `${item.title} — Resident`, rateType: 'resident-kes', ratePlan: rate.plan, singlePrice: rate.single, doublePrice: rate.double })}
-                                  className="bg-secondary text-foreground px-2 md:px-3 py-1 rounded text-xs font-semibold uppercase tracking-wide hover:bg-secondary/90 transition-colors"
-                                >
-                                  Book Now
-                                </button>
+<button
+                                   onClick={() => onBookNow?.({ accommodation: `${item.title} — Resident`, rateType: 'resident-kes', ratePlan: rate.plan, singlePrice: rate.single, doublePrice: rate.double, image: item.src, skipOccupancy: item.skipOccupancy })}
+                                   className="bg-secondary text-foreground px-2 md:px-3 py-1 rounded text-xs font-semibold uppercase tracking-wide hover:bg-secondary/90 transition-colors"
+                                 >
+                                   Book Now
+                                 </button>
                               </td>
                             </tr>
                           ))}
@@ -160,12 +168,12 @@ export function AccommodationContent({ onBookNow }: { onBookNow?: OnBookNow } = 
                               <td className="py-2 md:py-3 px-3 md:px-4 text-center text-secondary font-bold text-xs md:text-sm">{rate.single}</td>
                               <td className="py-2 md:py-3 px-3 md:px-4 text-center text-secondary font-bold text-xs md:text-sm">{rate.double}</td>
                               <td className="py-2 md:py-3 px-3 md:px-4 text-center">
-                                <button
-                                  onClick={() => onBookNow?.({ accommodation: `${item.title} — Non-Resident`, rateType: 'non-resident-usd', ratePlan: rate.plan, singlePrice: rate.single, doublePrice: rate.double })}
-                                  className="bg-secondary text-foreground px-2 md:px-3 py-1 rounded text-xs font-semibold uppercase tracking-wide hover:bg-secondary/90 transition-colors"
-                                >
-                                  Book Now
-                                </button>
+<button
+                                   onClick={() => onBookNow?.({ accommodation: `${item.title} — Non-Resident`, rateType: 'non-resident-usd', ratePlan: rate.plan, singlePrice: rate.single, doublePrice: rate.double, image: item.src, skipOccupancy: item.skipOccupancy })}
+                                   className="bg-secondary text-foreground px-2 md:px-3 py-1 rounded text-xs font-semibold uppercase tracking-wide hover:bg-secondary/90 transition-colors"
+                                 >
+                                   Book Now
+                                 </button>
                               </td>
                             </tr>
                           ))}

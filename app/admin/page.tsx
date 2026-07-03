@@ -2,8 +2,18 @@
 
 import { useState, useEffect } from 'react'
 import { motion } from 'framer-motion'
-import { Check, X, Trash2 } from 'lucide-react'
+import { Check, X, Trash2, Loader2 } from 'lucide-react'
 import { useRouter } from 'next/navigation'
+import { useToast } from '@/hooks/use-toast'
+import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogFooter } from '@/components/ui/dialog'
+import { Button } from '@/components/ui/button'
+import { Input } from '@/components/ui/input'
+import { Label } from '@/components/ui/label'
+import { Calendar } from '@/components/ui/calendar'
+import { Popover, PopoverContent, PopoverTrigger } from '@/components/ui/popover'
+import { format } from 'date-fns'
+import { BookingCalendarModal } from '@/components/admin/booking-calendar-modal'
+import { NoticesManager } from '@/components/admin/notices-manager'
 
 type Booking = {
   id: string
@@ -20,8 +30,11 @@ type Booking = {
   guestName: string | null
   email: string | null
   phone: string | null
+  checkIn: string | null
+  checkOut: string | null
   createdAt: string
   status: string
+  specialRequests?: string | null
 }
 
 export default function AdminPage() {
@@ -30,7 +43,11 @@ export default function AdminPage() {
   const [error, setError] = useState<string | null>(null)
   const [selectedBooking, setSelectedBooking] = useState<Booking | null>(null)
   const [filterStatus, setFilterStatus] = useState<string>('all')
+  const [savingId, setSavingId] = useState<string | null>(null)
+  const [showCalendar, setShowCalendar] = useState(false)
+  const [showNotices, setShowNotices] = useState(false)
   const router = useRouter()
+  const { toast } = useToast()
 
   const fetchBookings = async () => {
     setLoading(true)
@@ -74,21 +91,46 @@ export default function AdminPage() {
 
   const handleStatusToggle = async (id: string, status: string) => {
     try {
+      setSavingId(id)
       const res = await fetch(`/api/bookings/${id}`, {
         method: 'PATCH',
         headers: { 'Content-Type': 'application/json' },
         credentials: 'include',
         body: JSON.stringify({ status }),
       })
+      const data = await res.json().catch(() => ({ error: 'Failed' }))
       if (!res.ok) {
-        const data = await res.json().catch(() => ({ error: 'Failed' }))
         setError(data.error || 'Failed to update status')
+        toast({
+          title: 'Update failed',
+          description: data.error || 'Failed to update booking status',
+          variant: 'destructive',
+        })
         return
       }
       setBookings((prev) => prev.map((b) => (b.id === id ? { ...b, status } : b)))
+      const isPositive = status === 'new' || status === 'confirmed' || status === 'completed'
+      const isNegative = status === 'rejected' || status === 'cancelled'
+      toast({
+        title: 'Status updated',
+        description: data.emailSent ? 'Client notified by email.' : 'Client email could not be sent.',
+        variant: data.emailError ? 'destructive' : isPositive ? 'success' : isNegative ? 'failure' : 'default',
+      })
+      if (data.emailError) {
+        setError(`Status updated, but notification email failed: ${data.emailError}`)
+      } else {
+        setError(null)
+      }
     } catch (err) {
       console.error('Status update failed', err)
       setError('Network error while updating status')
+      toast({
+        title: 'Error',
+        description: 'Network error while updating status',
+        variant: 'destructive',
+      })
+    } finally {
+      setSavingId(null)
     }
   }
 
@@ -113,20 +155,32 @@ export default function AdminPage() {
         </div>
 
         <div className="flex items-center gap-4 mb-6">
-<select
-             value={filterStatus}
-             onChange={(e) => setFilterStatus(e.target.value)}
-             className="px-4 py-2 border-2 border-slate-200 rounded-lg text-sm focus:border-primary"
-           >
-             <option value="all">All Bookings</option>
-             <option value="new">New</option>
-             <option value="confirmed">Confirmed</option>
-             <option value="completed">Completed</option>
-             <option value="rejected">Rejected</option>
-             <option value="cancelled">Cancelled</option>
-           </select>
+          <select
+            value={filterStatus}
+            onChange={(e) => setFilterStatus(e.target.value)}
+            className="px-4 py-2 border-2 border-slate-200 rounded-lg text-sm focus:border-primary"
+          >
+            <option value="all">All Bookings</option>
+            <option value="new">New</option>
+            <option value="confirmed">Confirmed</option>
+            <option value="completed">Completed</option>
+            <option value="rejected">Rejected</option>
+            <option value="cancelled">Cancelled</option>
+          </select>
           <button onClick={fetchBookings} className="px-4 py-2 bg-primary text-white rounded-lg text-sm font-semibold hover:bg-primary/90">
             Refresh
+          </button>
+          <button onClick={async () => {
+            await fetch('/api/admin/check-expired-bookings', { method: 'POST', credentials: 'include' })
+            fetchBookings()
+          }} className="px-4 py-2 bg-secondary text-foreground rounded-lg text-sm font-semibold hover:bg-secondary/90">
+            Complete Past Stays
+          </button>
+          <button onClick={() => setShowCalendar(true)} className="px-4 py-2 bg-primary text-white rounded-lg text-sm font-semibold hover:bg-primary/90">
+            Booking Calendar
+          </button>
+          <button onClick={() => setShowNotices(true)} className="px-4 py-2 bg-secondary text-foreground rounded-lg text-sm font-semibold hover:bg-secondary/90">
+            Notices
           </button>
         </div>
 
@@ -154,6 +208,7 @@ export default function AdminPage() {
                   <th className="py-4 px-6 text-left">Booking ID</th>
                   <th className="py-4 px-6 text-left">Guest</th>
                   <th className="py-4 px-6 text-left">Accommodation</th>
+                  <th className="py-4 px-6 text-left">Dates</th>
                   <th className="py-4 px-6 text-left">Rate Type</th>
                   <th className="py-4 px-6 text-left">Plan</th>
                   <th className="py-4 px-6 text-center">Guests</th>
@@ -174,35 +229,47 @@ export default function AdminPage() {
                     </td>
                     <td className="py-4 px-6">{booking.accommodation}</td>
                     <td className="py-4 px-6">
+                      <div className="flex flex-col">
+                        <span className="font-medium">{booking.checkIn ? new Date(booking.checkIn).toLocaleDateString() : '—'}</span>
+                        <span className="text-xs text-foreground/60">{booking.checkOut ? new Date(booking.checkOut).toLocaleDateString() : '—'}</span>
+                      </div>
+                    </td>
+                    <td className="py-4 px-6">
                       <span className={`inline-block px-3 py-1 rounded-full text-xs font-semibold ${booking.rateType === 'non-resident-usd' ? 'bg-blue-100 text-blue-700' : 'bg-green-100 text-green-700'}`}>
                         {booking.rateType === 'non-resident-usd' ? 'USD' : 'KSH'}
                       </span>
                     </td>
                     <td className="py-4 px-6">{booking.ratePlan}</td>
                     <td className="py-4 px-6 text-center">{booking.guests}</td>
-<td className="py-4 px-6 text-right font-bold text-secondary">
-                       {booking.currency} {booking.totalCents ? (booking.totalCents / 100).toLocaleString() : '—'}
-                     </td>
+                    <td className="py-4 px-6 text-right font-bold text-secondary">
+                      {booking.currency} {booking.totalCents ? (booking.totalCents / 100).toLocaleString() : '—'}
+                    </td>
                     <td className="py-4 px-6">
-<select
-                         value={booking.status}
-                         onChange={(e) => handleStatusToggle(booking.id, e.target.value)}
-                         className={`px-3 py-1.5 rounded-lg text-xs font-semibold border-0 cursor-pointer ${
-                           booking.status === 'confirmed'
-                             ? 'bg-green-100 text-green-700'
-                             : booking.status === 'completed'
-                             ? 'bg-slate-100 text-slate-700'
-                             : booking.status === 'rejected'
-                             ? 'bg-red-100 text-red-700'
-                             : 'bg-yellow-100 text-yellow-700'
-                         }`}
-                       >
-                         <option value="new">New</option>
-                         <option value="confirmed">Confirmed</option>
-                         <option value="completed">Completed</option>
-                         <option value="rejected">Rejected</option>
-                         <option value="cancelled">Cancelled</option>
-                       </select>
+                      <div className="flex items-center gap-2">
+                        <select
+                          value={booking.status}
+                          onChange={(e) => handleStatusToggle(booking.id, e.target.value)}
+                          disabled={savingId === booking.id}
+                          className={`px-3 py-1.5 rounded-lg text-xs font-semibold border-0 cursor-pointer ${
+                            booking.status === 'confirmed'
+                              ? 'bg-green-100 text-green-700'
+                              : booking.status === 'completed'
+                              ? 'bg-slate-100 text-slate-700'
+                              : booking.status === 'rejected'
+                              ? 'bg-red-100 text-red-700'
+                              : 'bg-yellow-100 text-yellow-700'
+                          } ${savingId === booking.id ? 'opacity-70 cursor-wait' : ''}`}
+                        >
+                          <option value="new">New</option>
+                          <option value="confirmed">Confirmed</option>
+                          <option value="completed">Completed</option>
+                          <option value="rejected">Rejected</option>
+                          <option value="cancelled">Cancelled</option>
+                        </select>
+                        {savingId === booking.id && (
+                          <Loader2 className="w-4 h-4 animate-spin text-foreground/60" />
+                        )}
+                      </div>
                     </td>
                     <td className="py-4 px-6">
                       <div className="flex items-center gap-2">
@@ -263,6 +330,14 @@ export default function AdminPage() {
                     <p className="font-semibold">{selectedBooking.phone || selectedBooking.email || '—'}</p>
                   </div>
                   <div className="bg-slate-50 p-4 rounded-lg">
+                    <p className="text-xs text-foreground/60 mb-1">Check-in</p>
+                    <p className="font-semibold">{selectedBooking.checkIn ? new Date(selectedBooking.checkIn).toLocaleDateString() : '—'}</p>
+                  </div>
+                  <div className="bg-slate-50 p-4 rounded-lg">
+                    <p className="text-xs text-foreground/60 mb-1">Check-out</p>
+                    <p className="font-semibold">{selectedBooking.checkOut ? new Date(selectedBooking.checkOut).toLocaleDateString() : '—'}</p>
+                  </div>
+                  <div className="bg-slate-50 p-4 rounded-lg">
                     <p className="text-xs text-foreground/60 mb-1">Rate Type</p>
                     <p className="font-semibold">{selectedBooking.rateType === 'non-resident-usd' ? 'Non-Resident (USD)' : 'Resident (KSH)'}</p>
                   </div>
@@ -276,22 +351,25 @@ export default function AdminPage() {
                       <p className="font-semibold">{selectedBooking.specialRequests}</p>
                     </div>
                   )}
-<div className="bg-slate-50 p-4 rounded-lg">
-                     <p className="text-xs text-foreground/60 mb-1">Guests</p>
-                     <p className="font-semibold">{selectedBooking.guests}</p>
-                   </div>
-                   <div className="bg-slate-50 p-4 rounded-lg">
-                     <p className="text-xs text-foreground/60 mb-1">Total</p>
-                     <p className="font-bold text-secondary text-lg">
-                       {selectedBooking.currency} {selectedBooking.totalCents ? (selectedBooking.totalCents / 100).toLocaleString() : '—'}
-                     </p>
-                   </div>
+                  <div className="bg-slate-50 p-4 rounded-lg">
+                    <p className="text-xs text-foreground/60 mb-1">Guests</p>
+                    <p className="font-semibold">{selectedBooking.guests}</p>
+                  </div>
+                  <div className="bg-slate-50 p-4 rounded-lg">
+                    <p className="text-xs text-foreground/60 mb-1">Total</p>
+                    <p className="font-bold text-secondary text-lg">
+                      {selectedBooking.currency} {selectedBooking.totalCents ? (selectedBooking.totalCents / 100).toLocaleString() : '—'}
+                    </p>
+                  </div>
                 </div>
                 <p className="text-xs text-foreground/50">Submitted: {new Date(selectedBooking.createdAt).toLocaleString()}</p>
               </div>
             </motion.div>
           </motion.div>
         )}
+
+        <BookingCalendarModal open={showCalendar} onOpenChange={setShowCalendar} bookings={bookings} />
+        <NoticesManager open={showNotices} onOpenChange={setShowNotices} />
       </div>
     </div>
   )

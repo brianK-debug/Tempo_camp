@@ -11,7 +11,9 @@ type BookingInit = {
   rateType: string
   ratePlan: string
   singlePrice: string
-  doublePrice: string
+  doublePrice?: string
+  image?: string
+  skipOccupancy?: boolean
 }
 
 export function AccommodationPageClient() {
@@ -19,13 +21,28 @@ export function AccommodationPageClient() {
   const [bookingData, setBookingData] = useState<{ accommodation: string; rateType: string; ratePlan: string; basePrice: number; currency: 'KSH' | 'USD' } | null>(null)
   const [pendingBooking, setPendingBooking] = useState<BookingInit | null>(null)
 
-  const openBooking = (data: { accommodation: string; rateType: string; ratePlan: string; singlePrice: string; doublePrice: string }) => {
-    setPendingBooking(data)
+  const openBooking = (data: BookingInit) => {
+    if (data.skipOccupancy) {
+      const price = data.singlePrice
+      const cleanPrice = parseInt(price.replace(/[^0-9]/g, '')) || 0
+      const currency = data.rateType.includes('usd') ? 'USD' : 'KSH'
+      setBookingData({
+        accommodation: data.accommodation,
+        rateType: data.rateType,
+        ratePlan: data.ratePlan,
+        basePrice: cleanPrice,
+        currency: currency as 'KSH' | 'USD',
+        image: data.image,
+      })
+      setBookingOpen(true)
+    } else {
+      setPendingBooking(data)
+    }
   }
 
   const confirmBooking = (occupancy: 'single' | 'double') => {
     if (!pendingBooking) return
-    const price = occupancy === 'single' ? pendingBooking.singlePrice : pendingBooking.doublePrice
+    const price = occupancy === 'single' ? pendingBooking.singlePrice : pendingBooking.doublePrice || pendingBooking.singlePrice
     const cleanPrice = parseInt(price.replace(/[^0-9]/g, '')) || 0
     const currency = pendingBooking.rateType.includes('usd') ? 'USD' : 'KSH'
     setBookingData({
@@ -33,7 +50,8 @@ export function AccommodationPageClient() {
       rateType: pendingBooking.rateType,
       ratePlan: pendingBooking.ratePlan,
       basePrice: cleanPrice,
-      currency: currency as 'KSH' | 'USD'
+      currency: currency as 'KSH' | 'USD',
+      image: pendingBooking.image,
     })
     setPendingBooking(null)
     setBookingOpen(true)

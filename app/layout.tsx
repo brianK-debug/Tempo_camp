@@ -119,7 +119,7 @@ export default function RootLayout({
   children: React.ReactNode
 }>) {
   return (
-    <html lang="en" className="bg-background">
+    <html lang="en" className="bg-background overflow-x-hidden">
       <head>
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         <meta name="theme-color" content="#2d5a4d" />
@@ -129,7 +129,7 @@ export default function RootLayout({
           href="https://www.samburutempocamp.co.ke"
         />
       </head>
-      <body className={`${inter.variable} ${crimsonText.variable} font-sans antialiased`}>
+      <body className={`${inter.variable} ${crimsonText.variable} font-sans antialiased overflow-x-hidden`}>
         <StructuredData />
         <ScrollProvider>
           {children}
