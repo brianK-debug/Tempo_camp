@@ -43,7 +43,7 @@ export function AccommodationContent({ onBookNow }: { onBookNow?: OnBookNow } = 
 
   const rows = [
     {
-      title: 'Cottage',
+      title: 'A Cottage',
       residentRates: residentCottageRates,
       nonResidentRates: nonResidentCottageRates,
       src: '/cottage.png',
@@ -80,9 +80,9 @@ export function AccommodationContent({ onBookNow }: { onBookNow?: OnBookNow } = 
         <div className="relative h-full flex items-center justify-center px-6">
           <div className="text-center text-white max-w-3xl">
             <h1 className="text-4xl md:text-7xl font-serif font-bold mb-4">
-              Accommodation & Camping
+              Safari Accommodation & Camping in Samburu
             </h1>
-            <p className="text-lg md:text-2xl font-light">Stay with Us in Comfort and Luxury</p>
+            <p className="text-lg md:text-2xl font-light">Discover Comfort and Nature at Samburu Tempo Camp</p>
           </div>
         </div>
       </section>

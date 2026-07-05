@@ -36,6 +36,7 @@ model booking {
   checkOut DateTime?
 
   status          String   @default("new") // new | confirmed | completed | rejected | cancelled
+  paid            Boolean  @default(false)
   source          String   @default("web")
 
   ipAddress       String?

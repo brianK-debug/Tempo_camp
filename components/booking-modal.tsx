@@ -315,13 +315,13 @@ export function BookingModal({ open, onOpenChange, bookingData }: { open: boolea
 
                     <div>
                       <Label className="text-xs md:text-sm font-semibold text-foreground/80 mb-2 block">Number of Guests</Label>
-                      <div className="flex items-center gap-2 md:gap-3">
-                        <Button type="button" variant="outline" size="icon" onClick={() => setNumGuests((g) => Math.max(1, g - 1))} className="h-8 w-8 md:h-10 md:w-10 border-2 border-slate-300 hover:bg-primary hover:text-white hover:border-primary text-base md:text-lg font-bold">-</Button>
-                        <span className="text-lg md:text-2xl font-bold text-primary w-8 md:w-10 text-center">{numGuests}</span>
-                        <Button type="button" variant="outline" size="icon" onClick={() => setNumGuests((g) => Math.min(20, g + 1))} className="h-8 w-8 md:h-10 md:w-10 border-2 border-slate-300 hover:bg-primary hover:text-white hover:border-primary text-base md:text-lg font-bold">+</Button>
-                      </div>
+                        <div className="flex items-center gap-2 md:gap-3">
+                          <Button type="button" variant="outline" size="icon" onClick={() => setNumGuests((g) => Math.max(1, g - 1))} className="h-8 w-8 md:h-10 md:w-10 border-2 border-slate-300 hover:bg-primary hover:text-white hover:border-primary text-base md:text-lg font-bold">-</Button>
+                          <span className="text-lg md:text-2xl font-bold text-primary w-8 md:w-10 text-center">{numGuests}</span>
+                          <Button type="button" variant="outline" size="icon" onClick={() => setNumGuests((g) => Math.min(20, g + 1))} className="h-8 w-8 md:h-10 md:w-10 border-2 border-slate-300 hover:bg-primary hover:text-white hover:border-primary text-base md:text-lg font-bold">+</Button>
+                        </div>
                     </div>
-                  </div>
+                    </div>
                 </motion.div>
 
                   <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.7 }} className="bg-white rounded-xl shadow-lg border border-border p-4 md:p-6">
@@ -344,46 +344,54 @@ export function BookingModal({ open, onOpenChange, bookingData }: { open: boolea
                   </motion.div>
 
                    <motion.div initial={{ opacity: 0, x: 20 }} animate={{ opacity: 1, x: 0 }} transition={{ delay: 0.8 }} className="bg-gradient-to-br from-primary to-primary/90 rounded-xl shadow-lg p-5 md:p-6 text-white flex flex-col">
-                     <h3 className="text-lg md:text-xl font-serif font-bold mb-3 md:mb-4">Booking Summary</h3>
-                     <div className="space-y-2 md:space-y-3 text-xs md:text-sm flex-1">
-                       <div className="flex justify-between items-center">
-                         <span className="text-white/90">Accommodation ({nightsCount} {nightsCount === 1 ? 'night' : 'nights'} × {numGuests} {numGuests === 1 ? 'guest' : 'guests'})</span>
-                         <span className="font-bold text-white">{(basePrice * nightsCount * numGuests).toLocaleString()}</span>
-                       </div>
-                       <div className="flex justify-between items-center">
-                         <span className="text-white/90">Add-ons</span>
-                         <span className="font-bold text-white">{addOnTotal.toLocaleString()}</span>
-                       </div>
-                       <div className="border-t border-white/30 my-2 md:my-3"></div>
-                       <div className="flex justify-between items-center text-base md:text-lg">
-                         <span className="font-bold">Total</span>
-                         <span className="font-bold text-secondary">{currency} {grandTotal.toLocaleString()}</span>
-                       </div>
-                     </div>
-                   </motion.div>
+                      <h3 className="text-lg md:text-xl font-serif font-bold mb-3 md:mb-4">Booking Summary</h3>
+                      <div className="space-y-2 md:space-y-3 text-xs md:text-sm flex-1">
+                        <div className="flex justify-between items-center">
+                          <span className="text-white/90">Accommodation ({nightsCount} {nightsCount === 1 ? 'night' : 'nights'} × {numGuests} {numGuests === 1 ? 'guest' : 'guests'})</span>
+                          <span className="font-bold text-white">{(basePrice * nightsCount * numGuests).toLocaleString()}</span>
+                        </div>
+                        <div className="flex justify-between items-center">
+                          <span className="text-white/90">Add-ons</span>
+                          <span className="font-bold text-white">{addOnTotal.toLocaleString()}</span>
+                        </div>
+                        <div className="border-t border-white/30 my-2 md:my-3"></div>
+                        <div className="flex justify-between items-center text-base md:text-lg">
+                          <span className="font-bold">Total</span>
+                          <span className="font-bold text-secondary">{currency} {grandTotal.toLocaleString()}</span>
+                        </div>
+                      </div>
+                    </motion.div>
                 </div>
 
-                <div className="bg-white rounded-xl shadow-lg border border-border p-4 md:p-6">
+                <motion.div initial={{ opacity: 0, x: 30 }} animate={{ opacity: 1, x: 0 }} exit={{ opacity: 0, x: -30 }} transition={{ type: 'spring', stiffness: 200, damping: 25 }} className="bg-white rounded-xl shadow-lg border border-border p-4 md:p-6">
                   <h3 className="text-lg md:text-xl font-serif font-bold text-foreground mb-3 text-center">Payment Methods</h3>
                   <div className="flex flex-wrap items-center justify-center gap-6 md:gap-10">
-                    <div className="flex flex-col items-center gap-2">
-                      <Image src="/airtel.png" alt="Airtel Money" width={64} height={64} className="object-contain h-12 md:h-16" />
+                    <motion.div initial={{ opacity: 0, x: 40 }} animate={{ opacity: 1, x: 0 }} transition={{ delay: 0.1 }} className="flex flex-col items-center gap-2">
+                      <div className="w-16 h-16 md:w-20 md:h-20 rounded-full overflow-hidden border-2 border-primary/20 bg-white flex items-center justify-center shadow-md">
+                        <Image src="/airtel.png" alt="Airtel Money" width={64} height={64} className="object-contain w-10 h-10 md:w-12 md:h-12" />
+                      </div>
                       <span className="text-xs font-medium text-foreground/70">Airtel Money</span>
-                    </div>
-                    <div className="flex flex-col items-center gap-2">
-                      <Image src="/mpesa.png" alt="M-Pesa" width={64} height={64} className="object-contain h-12 md:h-16" />
+                    </motion.div>
+                    <motion.div initial={{ opacity: 0, x: 40 }} animate={{ opacity: 1, x: 0 }} transition={{ delay: 0.2 }} className="flex flex-col items-center gap-2">
+                      <div className="w-16 h-16 md:w-20 md:h-20 rounded-full overflow-hidden border-2 border-primary/20 bg-white flex items-center justify-center shadow-md">
+                        <Image src="/mpesa.png" alt="M-Pesa" width={64} height={64} className="object-contain w-10 h-10 md:w-12 md:h-12" />
+                      </div>
                       <span className="text-xs font-medium text-foreground/70">M-Pesa</span>
-                    </div>
-                    <div className="flex flex-col items-center gap-2">
-                      <Image src="/bank.png" alt="Bank Transfer" width={64} height={64} className="object-contain h-12 md:h-16" />
+                    </motion.div>
+                    <motion.div initial={{ opacity: 0, x: 40 }} animate={{ opacity: 1, x: 0 }} transition={{ delay: 0.3 }} className="flex flex-col items-center gap-2">
+                      <div className="w-16 h-16 md:w-20 md:h-20 rounded-full overflow-hidden border-2 border-primary/20 bg-white flex items-center justify-center shadow-md">
+                        <Image src="/bank.png" alt="Bank Transfer" width={64} height={64} className="object-contain w-10 h-10 md:w-12 md:h-12" />
+                      </div>
                       <span className="text-xs font-medium text-foreground/70">Bank Transfer</span>
-                    </div>
-                    <div className="flex flex-col items-center gap-2">
-                      <Image src="/visa.png" alt="Card Payments" width={64} height={64} className="object-contain h-12 md:h-16" />
+                    </motion.div>
+                    <motion.div initial={{ opacity: 0, x: 40 }} animate={{ opacity: 1, x: 0 }} transition={{ delay: 0.4 }} className="flex flex-col items-center gap-2">
+                      <div className="w-16 h-16 md:w-20 md:h-20 rounded-full overflow-hidden border-2 border-primary/20 bg-white flex items-center justify-center shadow-md">
+                        <Image src="/visa.png" alt="Card Payments" width={64} height={64} className="object-contain w-10 h-10 md:w-12 md:h-12" />
+                      </div>
                       <span className="text-xs font-medium text-foreground/70">Card Payments</span>
-                    </div>
+                    </motion.div>
                   </div>
-                </div>
+                </motion.div>
 
                 <DialogFooter className="flex flex-col md:flex-row md:items-center md:justify-between gap-4 md:gap-6 bg-white rounded-xl shadow-lg border border-border p-4 md:p-6">
                   <div className="space-y-1 md:space-y-2">
@@ -392,8 +400,8 @@ export function BookingModal({ open, onOpenChange, bookingData }: { open: boolea
                       {currency} {grandTotal.toLocaleString()}
                     </motion.p>
                      <p className="text-xs md:text-sm text-foreground/60">
-                       Base: {currency} {basePrice.toLocaleString()} x {nightsCount} nights x {numGuests} {numGuests === 1 ? 'guest' : 'guests'}
-                       {addOnTotal > 0 && ` + Add-ons: ${currency} ${addOnTotal.toLocaleString()}`}
+                        Base: {currency} {basePrice.toLocaleString()} x {nightsCount} nights x {numGuests} {numGuests === 1 ? 'guest' : 'guests'}
+                        {addOnTotal > 0 && ` + Add-ons: ${currency} ${addOnTotal.toLocaleString()}`}
                      </p>
                   </div>
                   <Button onClick={handleSubmit} size="lg" disabled={submitting} className="bg-secondary text-white hover:bg-secondary/90 font-bold uppercase tracking-wide px-8 md:px-10 py-5 md:py-6 text-base md:text-lg shadow-lg hover:shadow-xl transition-all">

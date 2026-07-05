@@ -44,6 +44,7 @@ export async function GET(request: Request) {
         checkIn: true,
         checkOut: true,
         status: true,
+        paid: true,
         createdAt: true,
         updatedAt: true,
       },
@@ -115,6 +116,7 @@ export async function POST(request: Request) {
         checkIn: checkIn ? new Date(checkIn) : undefined,
         checkOut: checkOut ? new Date(checkOut) : undefined,
         source: 'web',
+        paid: false,
       },
     })
 
@@ -132,6 +134,7 @@ export async function POST(request: Request) {
 Thank you for booking with Samburu Tempo Camp. We have received your booking request.
 
 Stay Details:
+- Booking ID: ${booking.id}
 - Accommodation: ${accommodation}
 - Check-in: ${checkInDate}
 - Check-out: ${checkOutDate}
@@ -146,6 +149,7 @@ Samburu Tempo Camp Team`,
 <p>Thank you for booking with <strong>Samburu Tempo Camp</strong>. We have received your booking request.</p>
 <h3>Stay Details</h3>
 <ul>
+  <li><strong>Booking ID:</strong> ${booking.id}</li>
   <li><strong>Accommodation:</strong> ${accommodation}</li>
   <li><strong>Check-in:</strong> ${checkInDate}</li>
   <li><strong>Check-out:</strong> ${checkOutDate}</li>

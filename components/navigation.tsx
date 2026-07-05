@@ -6,10 +6,19 @@ import { motion, AnimatePresence } from 'framer-motion'
 import Image from 'next/image'
 import { Menu, X } from 'lucide-react'
 import { NoticeBar } from '@/components/notice-bar'
+import { Dialog, DialogContent, DialogHeader, DialogTitle } from '@/components/ui/dialog'
+import { Button } from '@/components/ui/button'
+import { Input } from '@/components/ui/input'
+import { Label } from '@/components/ui/label'
+import { useToast } from '@/hooks/use-toast'
 
 export function Navigation() {
   const [isOpen, setIsOpen] = useState(false)
   const [scrolled, setScrolled] = useState(false)
+  const [cancelOpen, setCancelOpen] = useState(false)
+  const [bookingId, setBookingId] = useState('')
+  const [cancelLoading, setCancelLoading] = useState(false)
+  const { toast } = useToast()
 
   useEffect(() => {
     const handleScroll = () => {
@@ -18,6 +27,30 @@ export function Navigation() {
     window.addEventListener('scroll', handleScroll)
     return () => window.removeEventListener('scroll', handleScroll)
   }, [])
+
+  const handleCancelBooking = async () => {
+    if (!bookingId.trim()) return
+    setCancelLoading(true)
+    try {
+      const res = await fetch('/api/bookings/cancel', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ bookingId: bookingId.trim() }),
+      })
+      const data = await res.json()
+      if (data?.success) {
+        toast({ title: 'Booking Cancelled', description: 'Your booking has been successfully cancelled.' })
+        setBookingId('')
+        setCancelOpen(false)
+      } else {
+        toast({ title: 'Cancellation Failed', description: data.error || 'Booking not found. Please check your Booking ID.', variant: 'destructive' })
+      }
+    } catch (e) {
+      toast({ title: 'Error', description: 'Could not cancel booking. Please try again.', variant: 'destructive' })
+    } finally {
+      setCancelLoading(false)
+    }
+  }
 
   const mainLinks = [
     { label: 'Home', href: '/' },
@@ -30,7 +63,7 @@ export function Navigation() {
     <>
       <NoticeBar />
       <nav
-        className={`fixed w-full z-50 transition-all duration-500 ${
+        className={`fixed w-[90%] lg:w-[90%] mx-auto left-0 right-0 z-50 transition-all duration-500 ${
           scrolled
             ? 'top-8 bg-white shadow-lg border-b border-border'
             : 'top-8 bg-white'
@@ -62,8 +95,14 @@ export function Navigation() {
               ))}
             </div>
 
-             {/* Right Side - CTA Button */}
-             <div className="hidden lg:flex items-center gap-6">
+             {/* Right Side - CTA Buttons */}
+             <div className="hidden lg:flex items-center gap-4">
+                <button
+                  onClick={() => setCancelOpen(true)}
+                  className="px-4 py-2 border-2 border-red-500 text-red-600 rounded-lg text-sm font-semibold hover:bg-red-50 transition-colors"
+                >
+                  Cancel
+                </button>
                 <Link
                   href="/experiences/accommodation"
                   className="px-6 py-2.5 bg-secondary text-foreground text-sm font-semibold hover:shadow-lg transition-all duration-300"
@@ -105,6 +144,15 @@ export function Navigation() {
                   </Link>
                 ))}
                  <div className="h-px bg-border my-4" />
+                  <button
+                    onClick={() => {
+                      setCancelOpen(true)
+                      setIsOpen(false)
+                    }}
+                    className="block w-full py-3 border-2 border-red-500 text-red-600 text-center text-sm font-semibold hover:bg-red-50 transition-all"
+                  >
+                    Cancel Booking
+                  </button>
                   <Link
                     href="/experiences/accommodation"
                     className="block w-full py-3 bg-secondary text-foreground text-center text-sm font-semibold hover:shadow-lg transition-all"
@@ -117,6 +165,44 @@ export function Navigation() {
           )}
         </AnimatePresence>
       </nav>
+
+      {/* Cancel Booking Dialog */}
+      <Dialog open={cancelOpen} onOpenChange={setCancelOpen}>
+        <DialogContent className="sm:max-w-md bg-white">
+          <DialogHeader>
+            <DialogTitle className="text-foreground font-serif">Cancel Your Booking</DialogTitle>
+          </DialogHeader>
+          <div className="space-y-4 py-4">
+            <div className="p-3 bg-red-50 border border-red-200 rounded-lg">
+              <p className="text-xs font-semibold text-red-800 mb-1">Cancellation & Refund Policy</p>
+              <p className="text-xs text-red-700">
+                Cancellations made more than 7 days before check-in are fully refundable. Within 7 days, no refunds are issued.
+                Please note that administrative fees may apply.
+              </p>
+            </div>
+            <p className="text-sm text-foreground/70">
+              Please enter your Booking ID (found in your confirmation email) to cancel your booking.
+            </p>
+            <div className="space-y-2">
+              <Label htmlFor="booking-id" className="text-sm font-semibold">Booking ID</Label>
+              <Input
+                id="booking-id"
+                value={bookingId}
+                onChange={(e) => setBookingId(e.target.value)}
+                placeholder="Enter your booking ID..."
+                className="border-2 border-slate-200 focus:border-secondary"
+              />
+            </div>
+            <Button
+              onClick={handleCancelBooking}
+              disabled={cancelLoading || !bookingId.trim()}
+              className="w-full bg-red-600 text-white hover:bg-red-700"
+            >
+              {cancelLoading ? 'Cancelling...' : 'Cancel Booking'}
+            </Button>
+          </div>
+        </DialogContent>
+      </Dialog>
     </>
   )
 }

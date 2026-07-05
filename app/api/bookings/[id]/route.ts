@@ -109,6 +109,7 @@ export async function PATCH(request: Request, { params }: { params: Promise<{ id
 Great news! Your booking dates are available and we are pleased to confirm your reservation with Samburu Tempo Camp. We look forward to welcoming you!
 
 Booking Details:
+- Booking ID: ${existing.id}
 - Accommodation: ${existing.accommodation}
 - Check-in: ${checkInDate}
 - Check-out: ${checkOutDate}
@@ -122,6 +123,7 @@ Samburu Tempo Camp Team`,
 <p>Great news! Your booking dates are <strong>available</strong> and we are pleased to confirm your reservation with <strong>Samburu Tempo Camp</strong>. We look forward to welcoming you!</p>
 <h3>Booking Details</h3>
 <ul>
+  <li><strong>Booking ID:</strong> ${existing.id}</li>
   <li><strong>Accommodation:</strong> ${existing.accommodation}</li>
   <li><strong>Check-in:</strong> ${checkInDate}</li>
   <li><strong>Check-out:</strong> ${checkOutDate}</li>
@@ -137,6 +139,7 @@ Samburu Tempo Camp Team`,
 We regret to inform you that your booking request with Samburu Tempo Camp has been rejected.
 
 Booking Details:
+- Booking ID: ${existing.id}
 - Accommodation: ${existing.accommodation}
 - Check-in: ${checkInDate}
 - Check-out: ${checkOutDate}
@@ -150,6 +153,7 @@ Samburu Tempo Camp Team`,
 <p>We regret to inform you that your booking request with <strong>Samburu Tempo Camp</strong> has been rejected.</p>
 <h3>Booking Details</h3>
 <ul>
+  <li><strong>Booking ID:</strong> ${existing.id}</li>
   <li><strong>Accommodation:</strong> ${existing.accommodation}</li>
   <li><strong>Check-in:</strong> ${checkInDate}</li>
   <li><strong>Check-out:</strong> ${checkOutDate}</li>
@@ -165,6 +169,7 @@ Samburu Tempo Camp Team`,
 Your booking with Samburu Tempo Camp has been cancelled.
 
 Booking Details:
+- Booking ID: ${existing.id}
 - Accommodation: ${existing.accommodation}
 - Check-in: ${checkInDate}
 - Check-out: ${checkOutDate}
@@ -178,6 +183,7 @@ Samburu Tempo Camp Team`,
 <p>Your booking with <strong>Samburu Tempo Camp</strong> has been <strong>cancelled</strong>.</p>
 <h3>Booking Details</h3>
 <ul>
+  <li><strong>Booking ID:</strong> ${existing.id}</li>
   <li><strong>Accommodation:</strong> ${existing.accommodation}</li>
   <li><strong>Check-in:</strong> ${checkInDate}</li>
   <li><strong>Check-out:</strong> ${checkOutDate}</li>
@@ -193,6 +199,7 @@ Samburu Tempo Camp Team`,
 Your stay with Samburu Tempo Camp has been marked as completed. We hope you had an amazing time!
 
 Booking Details:
+- Booking ID: ${existing.id}
 - Accommodation: ${existing.accommodation}
 - Check-in: ${checkInDate}
 - Check-out: ${checkOutDate}
@@ -206,6 +213,7 @@ Samburu Tempo Camp Team`,
 <p>Your stay with <strong>Samburu Tempo Camp</strong> has been marked as <strong>completed</strong>. We hope you had an amazing time!</p>
 <h3>Booking Details</h3>
 <ul>
+  <li><strong>Booking ID:</strong> ${existing.id}</li>
   <li><strong>Accommodation:</strong> ${existing.accommodation}</li>
   <li><strong>Check-in:</strong> ${checkInDate}</li>
   <li><strong>Check-out:</strong> ${checkOutDate}</li>
@@ -223,6 +231,7 @@ Samburu Tempo Camp Team`,
 Your booking status has been updated to ${statusLabel}.
 
 Booking Details:
+- Booking ID: ${existing.id}
 - Accommodation: ${existing.accommodation}
 - Check-in: ${checkInDate}
 - Check-out: ${checkOutDate}
@@ -236,6 +245,7 @@ Samburu Tempo Camp Team`,
 <p>Your booking status has been updated to <strong>${statusLabel}</strong>.</p>
 <h3>Booking Details</h3>
 <ul>
+  <li><strong>Booking ID:</strong> ${existing.id}</li>
   <li><strong>Accommodation:</strong> ${existing.accommodation}</li>
   <li><strong>Check-in:</strong> ${checkInDate}</li>
   <li><strong>Check-out:</strong> ${checkOutDate}</li>

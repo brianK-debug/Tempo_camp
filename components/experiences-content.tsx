@@ -10,19 +10,19 @@ export function ExperiencesContent() {
       title: 'Accommodation & Camping',
       description: 'Sleep under African stars in our luxurious safari tents and suites. World-class amenities with authentic wilderness experience.',
       href: '/experiences/accommodation',
-      image: '/tent-a.jpeg',
+      image: '/cottage.jpeg',
     },
     {
       title: 'Wildlife & Nature',
       description: 'Epic safari adventures with expert guides. Track the Big Five and encounter rare species in their natural habitat.',
       href: '/experiences/wildlife',
-      image: '/safari-jeep.jpg',
+      image: '/cheetah.jpeg',
     },
     {
       title: 'Cultural Visits',
       description: 'Immerse yourself in authentic Samburu traditions. Meet warriors, learn crafts, and support community development.',
       href: '/experiences/cultural',
-      image: '/cultural-visit.jpg',
+      image: '/night-3.jpeg',
     },
     {
       title: 'Swimming & Recreation',
