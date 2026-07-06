@@ -166,15 +166,13 @@ export function BookingModal({ open, onOpenChange, bookingData }: { open: boolea
     }
   }
 
-  useEffect(() => {
-    if (isSubmitted && open) {
-      const timer = setTimeout(() => {
-        setIsSubmitted(false)
-        onOpenChange(false)
-      }, 1800)
-      return () => clearTimeout(timer)
-    }
-  }, [isSubmitted, open, onOpenChange])
+  const handleClose = () => {
+    setIsSubmitted(false)
+    onOpenChange(false)
+  }
+  const handleKeepOpen = () => {
+    setIsSubmitted(false)
+  }
 
   const accommodationName = bookingData?.accommodation ?? 'Selected accommodation'
 
@@ -201,14 +199,35 @@ export function BookingModal({ open, onOpenChange, bookingData }: { open: boolea
             </DialogHeader>
 
             {isSubmitted ? (
-              <motion.div initial={{ scale: 0.8, opacity: 0 }} animate={{ scale: 1, opacity: 1 }} transition={{ type: 'spring', stiffness: 200, damping: 20 }} className="py-20 text-center">
+              <motion.div initial={{ scale: 0.8, opacity: 0 }} animate={{ scale: 1, opacity: 1 }} transition={{ type: 'spring', stiffness: 200, damping: 20 }} className="relative py-20 text-center">
+                <div className="absolute top-4 right-4">
+                  <button onClick={handleClose} className="p-2 rounded-full bg-red-100 text-red-600 hover:bg-red-200 transition-colors" aria-label="Close">
+                    <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={3} d="M6 18L18 6M6 6l12 12" />
+                    </svg>
+                  </button>
+                </div>
                 <motion.div initial={{ scale: 0 }} animate={{ scale: 1 }} transition={{ delay: 0.2, type: 'spring', stiffness: 200 }} className="inline-block p-6 bg-green-100 rounded-full mb-6">
                   <svg className="w-16 h-16 text-green-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={3} d="M5 13l4 4L19 7" />
                   </svg>
                 </motion.div>
                 <p className="text-4xl md:text-5xl font-bold text-primary mb-4">Booking Received!</p>
-                <p className="text-lg md:text-xl text-foreground/70">Please wait for a booking confirmation email.</p>
+                <p className="text-lg md:text-xl text-foreground/70 mb-8">Please wait for a booking confirmation email.</p>
+                <div className="max-w-md mx-auto bg-white rounded-xl shadow-md border border-border p-6 text-left">
+                  <p className="text-base font-bold text-foreground mb-3">Payment / Bank Details:</p>
+                  <div className="text-sm text-foreground/80 space-y-1">
+                    <p><span className="font-semibold">Bank Name:</span> KENYA COMMERCIAL BANK (KCB)</p>
+                    <p><span className="font-semibold">Branch:</span> MARALAL</p>
+                    <p><span className="font-semibold">Account Name:</span> SAMBURU TEMPO CAMP LIMITED</p>
+                    <p><span className="font-semibold">Account Number:</span></p>
+                    <p className="pl-4">USD - 1346032122</p>
+                    <p className="pl-4">KES - 1339890240</p>
+                  </div>
+                </div>
+                <button onClick={handleKeepOpen} className="mt-8 px-6 py-3 bg-secondary text-white rounded-lg text-sm font-semibold hover:bg-secondary/90 shadow-md">
+                  Back to Booking
+                </button>
               </motion.div>
             ) : (
               <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.3 }} className="space-y-6 md:space-y-8">
