@@ -164,6 +164,49 @@ Samburu Tempo Camp Team`,
       }
     }
 
+    const adminTransporter = createMailer()
+    const adminCheckInDate = booking.checkIn ? new Date(booking.checkIn).toLocaleDateString() : 'N/A'
+    const adminCheckOutDate = booking.checkOut ? new Date(booking.checkOut).toLocaleDateString() : 'N/A'
+    try {
+      await adminTransporter.sendMail({
+        from: process.env.EMAIL_FROM || process.env.EMAIL_USER,
+        to: 'info@samburutempocamp.co.ke',
+        subject: 'New Booking Notification',
+        text: `A new booking has been received.
+
+Booking Details:
+- Booking ID: ${booking.id}
+- Accommodation: ${accommodation}
+- Check-in: ${adminCheckInDate}
+- Check-out: ${adminCheckOutDate}
+- Guests: ${numGuests}
+- Total: ${currency} ${(grandTotal).toLocaleString()}
+- Guest Name: ${guestName || 'N/A'}
+- Guest Email: ${email || 'N/A'}
+- Guest Phone: ${phone || 'N/A'}
+- Special Requests: ${specialRequests || 'None'}
+
+Please review and confirm this booking.`,
+        html: `<p>A new booking has been received.</p>
+<h3>Booking Details</h3>
+<ul>
+  <li><strong>Booking ID:</strong> ${booking.id}</li>
+  <li><strong>Accommodation:</strong> ${accommodation}</li>
+  <li><strong>Check-in:</strong> ${adminCheckInDate}</li>
+  <li><strong>Check-out:</strong> ${adminCheckOutDate}</li>
+  <li><strong>Guests:</strong> ${numGuests}</li>
+  <li><strong>Total:</strong> ${currency} ${(grandTotal).toLocaleString()}</li>
+  <li><strong>Guest Name:</strong> ${guestName || 'N/A'}</li>
+  <li><strong>Guest Email:</strong> ${email || 'N/A'}</li>
+  <li><strong>Guest Phone:</strong> ${phone || 'N/A'}</li>
+  <li><strong>Special Requests:</strong> ${specialRequests || 'None'}</li>
+</ul>
+<p>Please review and confirm this booking.</p>`,
+      })
+    } catch (mailErr) {
+      console.error('Failed to send admin booking notification email:', mailErr)
+    }
+
     return NextResponse.json({ success: true, booking }, { status: 201 })
   } catch (error) {
     console.error('Booking save error:', error)

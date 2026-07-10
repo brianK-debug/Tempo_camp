@@ -184,7 +184,7 @@ export default function AdminPage() {
     if (filterStatus !== 'all' && b.status !== filterStatus) return false
     if (filterPaid === 'paid' && !b.paid) return false
     if (filterPaid === 'unpaid' && b.paid) return false
-    if (filterAccommodation !== 'all' && b.accommodation !== filterAccommodation) return false
+    if (filterAccommodation !== 'all' && !b.accommodation.toLowerCase().includes(filterAccommodation.toLowerCase())) return false
     return true
   })
 
