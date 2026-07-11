@@ -22,10 +22,10 @@ export function RoomsSection() {
         { plan: 'Full Board', single: 'Ksh 7,000', double: 'Ksh 9,500' },
       ],
       nonResidentRates: [
-        { plan: 'Bed Only', single: 'USD 23', double: 'USD 31' },
-        { plan: 'Bed & Breakfast', single: 'USD 31', double: 'USD 42' },
-        { plan: 'Half Board', single: 'USD 42', double: 'USD 58' },
-        { plan: 'Full Board', single: 'USD 54', double: 'USD 73' },
+        { plan: 'Bed Only', single: 'USD 35', double: 'USD 65' },
+        { plan: 'Bed & Breakfast', single: 'USD 50', double: 'USD 90' },
+        { plan: 'Half Board', single: 'USD 75', double: 'USD 130' },
+        { plan: 'Full Board', single: 'USD 105', double: 'USD 160' },
       ],
       image: '/tent-b.jpeg',
       featured: true,
@@ -41,12 +41,24 @@ export function RoomsSection() {
         { plan: 'Full Board', single: 'Ksh 6,000', double: 'Ksh 9,000' },
       ],
       nonResidentRates: [
-        { plan: 'Bed Only', single: 'USD 15', double: 'USD 27' },
-        { plan: 'Bed & Breakfast', single: 'USD 23', double: 'USD 38' },
-        { plan: 'Half Board', single: 'USD 35', double: 'USD 54' },
-        { plan: 'Full Board', single: 'USD 46', double: 'USD 69' },
+        { plan: 'Bed Only', single: 'USD 30', double: 'USD 55' },
+        { plan: 'Bed & Breakfast', single: 'USD 45', double: 'USD 80' },
+        { plan: 'Half Board', single: 'USD 70', double: 'USD 120' },
+        { plan: 'Full Board', single: 'USD 100', double: 'USD 150' },
       ],
       image: '/accomodation.jpeg',
+    },
+    {
+      name: 'Camping Ground',
+      description: 'Open-air camping experience under the vast African sky, perfect for adventurers.',
+      features: ['Open campsite', 'Fire pit', 'Shared amenities', 'Nature immersion', 'Day use available'],
+      residentRates: [
+        { plan: 'Day Use', single: 'Ksh 1,000', double: 'Ksh 1,000' },
+      ],
+      nonResidentRates: [
+        { plan: 'Day Use', single: 'USD 20', double: 'USD 20' },
+      ],
+      image: '/tent-2.jpeg',
     },
   ]
 
@@ -66,7 +78,7 @@ export function RoomsSection() {
           </h2>
         </motion.div>
 
-<div className="grid lg:grid-cols-2 gap-8 items-stretch">
+<div className="grid lg:grid-cols-3 gap-8 items-stretch">
            {rooms.map((room, idx) => (
              <motion.div
                key={idx}

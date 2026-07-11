@@ -22,17 +22,24 @@ export function AccommodationContent({ onBookNow }: { onBookNow?: OnBookNow } = 
   ]
 
   const nonResidentCottageRates = [
-    { plan: 'Bed Only', single: 'USD 19', double: 'USD 27' },
-    { plan: 'Bed & Breakfast', single: 'USD 81', double: 'USD 112' },
-    { plan: 'Half Board', single: 'USD 77', double: 'USD 119' },
-    { plan: 'Full Board', single: 'USD 104', double: 'USD 150' },
+    { plan: 'Bed Only', single: 'USD 35', double: 'USD 65' },
+    { plan: 'Bed & Breakfast', single: 'USD 50', double: 'USD 90' },
+    { plan: 'Half Board', single: 'USD 75', double: 'USD 130' },
+    { plan: 'Full Board', single: 'USD 105', double: 'USD 160' },
+  ]
+
+  const residentTentRates = [
+    { plan: 'Bed Only', single: 'Ksh 2,000', double: 'Ksh 2,500' },
+    { plan: 'Bed & Breakfast', single: 'Ksh 7,500', double: 'Ksh 12,000' },
+    { plan: 'Half Board', single: 'Ksh 7,000', double: 'Ksh 13,000' },
+    { plan: 'Full Board', single: 'Ksh 10,500', double: 'Ksh 18,000' },
   ]
 
   const nonResidentTentRates = [
-    { plan: 'Bed Only', single: 'USD 15', double: 'USD 27' },
-    { plan: 'Bed & Breakfast', single: 'USD 58', double: 'USD 92' },
-    { plan: 'Half Board', single: 'USD 77', double: 'USD 119' },
-    { plan: 'Full Board', single: 'USD 104', double: 'USD 150' },
+    { plan: 'Bed Only', single: 'USD 30', double: 'USD 55' },
+    { plan: 'Bed & Breakfast', single: 'USD 45', double: 'USD 80' },
+    { plan: 'Half Board', single: 'USD 70', double: 'USD 120' },
+    { plan: 'Full Board', single: 'USD 100', double: 'USD 150' },
   ]
 
   const amenities = [
