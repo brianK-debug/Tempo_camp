@@ -28,13 +28,6 @@ export function AccommodationContent({ onBookNow }: { onBookNow?: OnBookNow } = 
     { plan: 'Full Board', single: 'USD 105', double: 'USD 160' },
   ]
 
-  const residentTentRates = [
-    { plan: 'Bed Only', single: 'Ksh 2,000', double: 'Ksh 2,500' },
-    { plan: 'Bed & Breakfast', single: 'Ksh 7,500', double: 'Ksh 12,000' },
-    { plan: 'Half Board', single: 'Ksh 7,000', double: 'Ksh 13,000' },
-    { plan: 'Full Board', single: 'Ksh 10,500', double: 'Ksh 18,000' },
-  ]
-
   const nonResidentTentRates = [
     { plan: 'Bed Only', single: 'USD 30', double: 'USD 55' },
     { plan: 'Bed & Breakfast', single: 'USD 45', double: 'USD 80' },
