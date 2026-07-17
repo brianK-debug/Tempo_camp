@@ -23,7 +23,7 @@ export function Footer() {
     Follow: [
       { label: 'Instagram', href: 'https://www.instagram.com/samburutempocamp?igsh=d3N3bXl6cG42YWo1' },
       { label: 'Facebook', href: 'https://www.facebook.com/profile.php?id=61573340544810&mibextid=ZbWKwL' },
-      { label: 'X', href: 'https://www.youtube.com' },
+      { label: 'X', href: '#' },
     ],
   }
 
