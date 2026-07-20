@@ -53,10 +53,10 @@ export function RoomsSection() {
       description: 'Open-air camping experience under the vast African sky, perfect for adventurers.',
       features: ['Open campsite', 'Fire pit', 'Shared amenities', 'Nature immersion', 'Day use available'],
       residentRates: [
-        { plan: 'Day Use', single: 'Ksh 1,000', double: 'Ksh 1,000' },
+        { plan: 'Day Use', Price: 'Ksh 1,000' },
       ],
       nonResidentRates: [
-        { plan: 'Day Use', single: 'USD 20', double: 'USD 20' },
+        { plan: 'Day Use', Price: 'USD 20'},
       ],
       image: '/tent-2.jpeg',
     },

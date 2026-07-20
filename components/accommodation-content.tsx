@@ -58,8 +58,8 @@ export function AccommodationContent({ onBookNow }: { onBookNow?: OnBookNow } = 
     },
 {
       title: 'Camping Ground',
-      residentRates: [{ plan: 'Day Use', single: 'Ksh 1,000', double: 'Ksh 1,000' }],
-      nonResidentRates: [{ plan: 'Day Use', single: 'USD 20', double: 'USD 20' }],
+      residentRates: [{ plan: 'Day Use', Price: 'Ksh 1,000' }],
+      nonResidentRates: [{ plan: 'Day Use', Price: 'USD 20' }],
       src: '/tent-2.jpeg',
       alt: 'Camping Ground',
       skipOccupancy: true,
