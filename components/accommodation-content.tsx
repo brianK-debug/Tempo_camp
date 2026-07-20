@@ -8,17 +8,17 @@ type OnBookNow = (data: { accommodation: string; rateType: string; ratePlan: str
 
 export function AccommodationContent({ onBookNow }: { onBookNow?: OnBookNow } = {}) {
   const residentCottageRates = [
-    { plan: 'Bed Only', single: 'Ksh 2,500', double: 'Ksh 3,500' },
-    { plan: 'Bed & Breakfast', single: 'Ksh 10,500', double: 'Ksh 14,500' },
-    { plan: 'Half Board', single: 'Ksh 10,000', double: 'Ksh 15,500' },
-    { plan: 'Full Board', single: 'Ksh 13,500', double: 'Ksh 19,500' },
+    { plan: 'Bed Only', single: 'Ksh 3,000', double: 'Ksh 4,000' },
+    { plan: 'Bed & Breakfast', single: 'Ksh 4,000', double: 'Ksh 5,500' },
+    { plan: 'Half Board', single: 'Ksh 5,500', double: 'Ksh 7,500' },
+    { plan: 'Full Board', single: 'Ksh 7,000', double: 'Ksh 9,500' },
   ]
 
   const residentTentRates = [
-    { plan: 'Bed Only', single: 'Ksh 2,000', double: 'Ksh 2,500' },
-    { plan: 'Bed & Breakfast', single: 'Ksh 7,500', double: 'Ksh 12,000' },
-    { plan: 'Half Board', single: 'Ksh 7,000', double: 'Ksh 13,000' },
-    { plan: 'Full Board', single: 'Ksh 10,500', double: 'Ksh 18,000' },
+    { plan: 'Bed Only', single: 'Ksh 2,000', double: 'Ksh 3,500' },
+    { plan: 'Bed & Breakfast', single: 'Ksh 3,000', double: 'Ksh 5,000' },
+    { plan: 'Half Board', single: 'Ksh 4,500', double: 'Ksh 7,000' },
+    { plan: 'Full Board', single: 'Ksh 6,000', double: 'Ksh 9,000' },
   ]
 
   const nonResidentCottageRates = [
