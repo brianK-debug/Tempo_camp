@@ -35,6 +35,14 @@ export function AccommodationContent({ onBookNow }: { onBookNow?: OnBookNow } = 
     { plan: 'Full Board', single: 'USD 100', double: 'USD 150' },
   ]
 
+  const residentCampingRates = [
+    { plan: 'Day Use', price: 'Ksh 1,000' },
+  ]
+
+  const nonResidentCampingRates = [
+    { plan: 'Day Use', price: 'USD 20' },
+  ]
+
   const amenities = [
     { title: 'Meals on Order', description: 'Chef-prepared cuisine tailored to your preferences' },
     { title: 'Soft Drinks', description: 'Refreshing beverages available throughout your stay' },
@@ -58,8 +66,8 @@ export function AccommodationContent({ onBookNow }: { onBookNow?: OnBookNow } = 
     },
 {
       title: 'Camping Ground',
-      residentRates: [{ plan: 'Day Use', Price: 'Ksh 1,000' }],
-      nonResidentRates: [{ plan: 'Day Use', Price: 'USD 20' }],
+      residentRates: residentCampingRates,
+      nonResidentRates: nonResidentCampingRates,
       src: '/tent-2.jpeg',
       alt: 'Camping Ground',
       skipOccupancy: true,
@@ -107,12 +115,18 @@ export function AccommodationContent({ onBookNow }: { onBookNow?: OnBookNow } = 
                       Resident Rates (KSH)
                     </h4>
                     <div className="overflow-x-auto">
-                      <table className="w-full min-w-[320px] bg-white rounded-lg shadow border border-border">
+                    <table className="w-full min-w-[320px] bg-white rounded-lg shadow border border-border">
                         <thead>
                           <tr className="bg-primary text-white">
                             <th className="py-2 md:py-3 px-3 md:px-4 text-left text-xs md:text-sm">Plan</th>
-                            <th className="py-2 md:py-3 px-3 md:px-4 text-center text-xs md:text-sm">Single</th>
-                            <th className="py-2 md:py-3 px-3 md:px-4 text-center text-xs md:text-sm">Double</th>
+                            {item.title === 'Camping Ground' ? (
+                              <th colSpan={2} className="py-2 md:py-3 px-3 md:px-4 text-center text-xs md:text-sm">Price</th>
+                            ) : (
+                              <>
+                                <th className="py-2 md:py-3 px-3 md:px-4 text-center text-xs md:text-sm">Single</th>
+                                <th className="py-2 md:py-3 px-3 md:px-4 text-center text-xs md:text-sm">Double</th>
+                              </>
+                            )}
                             <th className="py-2 md:py-3 px-3 md:px-4 text-center text-xs md:text-sm">Book</th>
                           </tr>
                         </thead>
@@ -120,15 +134,21 @@ export function AccommodationContent({ onBookNow }: { onBookNow?: OnBookNow } = 
                           {item.residentRates.map((rate, i) => (
                             <tr key={rate.plan} className={i % 2 === 0 ? 'bg-white' : 'bg-muted/20'}>
                               <td className="py-2 md:py-3 px-3 md:px-4 font-semibold text-foreground text-xs md:text-sm">{rate.plan}</td>
-                              <td className="py-2 md:py-3 px-3 md:px-4 text-center text-secondary font-bold text-xs md:text-sm">{rate.single}</td>
-                              <td className="py-2 md:py-3 px-3 md:px-4 text-center text-secondary font-bold text-xs md:text-sm">{rate.double}</td>
+                              {item.title === 'Camping Ground' ? (
+                                <td colSpan={2} className="py-2 md:py-3 px-3 md:px-4 text-center text-secondary font-bold text-xs md:text-sm">{rate.price}</td>
+                              ) : (
+                                <>
+                                  <td className="py-2 md:py-3 px-3 md:px-4 text-center text-secondary font-bold text-xs md:text-sm">{rate.single}</td>
+                                  <td className="py-2 md:py-3 px-3 md:px-4 text-center text-secondary font-bold text-xs md:text-sm">{rate.double}</td>
+                                </>
+                              )}
                               <td className="py-2 md:py-3 px-3 md:px-4 text-center">
-<button
-                                   onClick={() => onBookNow?.({ accommodation: `${item.title} — Resident`, rateType: 'resident-kes', ratePlan: rate.plan, singlePrice: rate.single, doublePrice: rate.double, image: item.src, skipOccupancy: item.skipOccupancy })}
-                                   className="bg-secondary text-foreground px-2 md:px-3 py-1 rounded text-xs font-semibold uppercase tracking-wide hover:bg-secondary/90 transition-colors"
-                                 >
-                                   Book Now
-                                 </button>
+                                <button
+                                  onClick={() => onBookNow?.({ accommodation: `${item.title} — Resident`, rateType: 'resident-kes', ratePlan: rate.plan, singlePrice: rate.price ?? rate.single, doublePrice: rate.price ? undefined : rate.double, image: item.src, skipOccupancy: item.skipOccupancy })}
+                                  className="bg-secondary text-foreground px-2 md:px-3 py-1 rounded text-xs font-semibold uppercase tracking-wide hover:bg-secondary/90 transition-colors"
+                                >
+                                  Book Now
+                                </button>
                               </td>
                             </tr>
                           ))}
@@ -152,12 +172,18 @@ export function AccommodationContent({ onBookNow }: { onBookNow?: OnBookNow } = 
                       Non resident rates (USD)
                     </h4>
                     <div className="overflow-x-auto">
-                      <table className="w-full min-w-[320px] bg-white rounded-lg shadow border border-border">
+                    <table className="w-full min-w-[320px] bg-white rounded-lg shadow border border-border">
                         <thead>
                           <tr className="bg-primary text-white">
                             <th className="py-2 md:py-3 px-3 md:px-4 text-left text-xs md:text-sm">Plan</th>
-                            <th className="py-2 md:py-3 px-3 md:px-4 text-center text-xs md:text-sm">Single</th>
-                            <th className="py-2 md:py-3 px-3 md:px-4 text-center text-xs md:text-sm">Double</th>
+                            {item.title === 'Camping Ground' ? (
+                              <th colSpan={2} className="py-2 md:py-3 px-3 md:px-4 text-center text-xs md:text-sm">Price</th>
+                            ) : (
+                              <>
+                                <th className="py-2 md:py-3 px-3 md:px-4 text-center text-xs md:text-sm">Single</th>
+                                <th className="py-2 md:py-3 px-3 md:px-4 text-center text-xs md:text-sm">Double</th>
+                              </>
+                            )}
                             <th className="py-2 md:py-3 px-3 md:px-4 text-center text-xs md:text-sm">Book</th>
                           </tr>
                         </thead>
@@ -165,15 +191,21 @@ export function AccommodationContent({ onBookNow }: { onBookNow?: OnBookNow } = 
                           {item.nonResidentRates.map((rate, i) => (
                             <tr key={rate.plan} className={i % 2 === 0 ? 'bg-white' : 'bg-muted/20'}>
                               <td className="py-2 md:py-3 px-3 md:px-4 font-semibold text-foreground text-xs md:text-sm">{rate.plan}</td>
-                              <td className="py-2 md:py-3 px-3 md:px-4 text-center text-secondary font-bold text-xs md:text-sm">{rate.single}</td>
-                              <td className="py-2 md:py-3 px-3 md:px-4 text-center text-secondary font-bold text-xs md:text-sm">{rate.double}</td>
+                              {item.title === 'Camping Ground' ? (
+                                <td colSpan={2} className="py-2 md:py-3 px-3 md:px-4 text-center text-secondary font-bold text-xs md:text-sm">{rate.price}</td>
+                              ) : (
+                                <>
+                                  <td className="py-2 md:py-3 px-3 md:px-4 text-center text-secondary font-bold text-xs md:text-sm">{rate.single}</td>
+                                  <td className="py-2 md:py-3 px-3 md:px-4 text-center text-secondary font-bold text-xs md:text-sm">{rate.double}</td>
+                                </>
+                              )}
                               <td className="py-2 md:py-3 px-3 md:px-4 text-center">
-<button
-                                   onClick={() => onBookNow?.({ accommodation: `${item.title} — Non-Resident`, rateType: 'non-resident-usd', ratePlan: rate.plan, singlePrice: rate.single, doublePrice: rate.double, image: item.src, skipOccupancy: item.skipOccupancy })}
-                                   className="bg-secondary text-foreground px-2 md:px-3 py-1 rounded text-xs font-semibold uppercase tracking-wide hover:bg-secondary/90 transition-colors"
-                                 >
-                                   Book Now
-                                 </button>
+                                <button
+                                  onClick={() => onBookNow?.({ accommodation: `${item.title} — Non-Resident`, rateType: 'non-resident-usd', ratePlan: rate.plan, singlePrice: rate.price ?? rate.single, doublePrice: rate.price ? undefined : rate.double, image: item.src, skipOccupancy: item.skipOccupancy })}
+                                  className="bg-secondary text-foreground px-2 md:px-3 py-1 rounded text-xs font-semibold uppercase tracking-wide hover:bg-secondary/90 transition-colors"
+                                >
+                                  Book Now
+                                </button>
                               </td>
                             </tr>
                           ))}

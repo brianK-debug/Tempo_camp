@@ -8,11 +8,13 @@ type BookingInit = {
   ratePlan: string
   singlePrice: string
   doublePrice: string
+  image?: string
+  skipOccupancy?: boolean
 }
 
 export function useBooking() {
   const [bookingOpen, setBookingOpen] = useState(false)
-  const [bookingData, setBookingData] = useState<{ accommodation: string; rateType: string; ratePlan: string; basePrice: number; currency: 'KSH' | 'USD' } | null>(null)
+  const [bookingData, setBookingData] = useState<{ accommodation: string; rateType: string; ratePlan: string; basePrice: number; currency: 'KSH' | 'USD'; image?: string; skipOccupancy?: boolean } | null>(null)
   const [pendingBooking, setPendingBooking] = useState<BookingInit | null>(null)
 
   const openBooking = useCallback((data: BookingInit) => setPendingBooking(data), [])
@@ -28,7 +30,9 @@ export function useBooking() {
       rateType: pendingBooking.rateType,
       ratePlan: pendingBooking.ratePlan,
       basePrice: cleanPrice,
-      currency: currency as 'KSH' | 'USD'
+      currency: currency as 'KSH' | 'USD',
+      image: pendingBooking.image,
+      skipOccupancy: pendingBooking.skipOccupancy,
     })
     setPendingBooking(null)
     setBookingOpen(true)

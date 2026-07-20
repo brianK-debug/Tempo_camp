@@ -38,6 +38,7 @@ type BookingData = {
   basePrice: number
   currency: string
   image?: string
+  skipOccupancy?: boolean
 }
 
 export function BookingModal({ open, onOpenChange, bookingData }: { open: boolean; onOpenChange: (open: boolean) => void; bookingData: BookingData | null }) {
@@ -47,7 +48,7 @@ export function BookingModal({ open, onOpenChange, bookingData }: { open: boolea
   const [selectedRateType, setSelectedRateType] = useState(initialRateType)
   const [selectedRatePlan, setSelectedRatePlan] = useState(initialRatePlan)
   const [selectedAddOns, setSelectedAddOns] = useState<string[]>([])
-  const [numGuests, setNumGuests] = useState(2)
+  const [numGuests, setNumGuests] = useState(1)
   const [checkIn, setCheckIn] = useState<Date | undefined>(undefined)
   const [checkOut, setCheckOut] = useState<Date | undefined>(undefined)
   const [guestName, setGuestName] = useState('')
@@ -64,7 +65,7 @@ export function BookingModal({ open, onOpenChange, bookingData }: { open: boolea
     setSelectedRateType(bookingData?.rateType ?? 'resident-kes')
     setSelectedRatePlan(bookingData?.ratePlan ?? 'bed-only')
     setSelectedAddOns([])
-    setNumGuests(2)
+    setNumGuests(1)
     setCheckIn(undefined)
     setCheckOut(undefined)
     setGuestName('')
@@ -83,7 +84,7 @@ export function BookingModal({ open, onOpenChange, bookingData }: { open: boolea
   const basePrice = useMemo(() => bookingData?.basePrice ?? 0, [bookingData])
 
   const nightsCount = useMemo(() => {
-    if (!checkIn || !checkOut) return 2
+    if (!checkIn || !checkOut) return 1
     const diff = Math.round((checkOut.getTime() - checkIn.getTime()) / (1000 * 60 * 60 * 24))
     return Math.max(1, diff)
   }, [checkIn, checkOut])
@@ -98,8 +99,9 @@ export function BookingModal({ open, onOpenChange, bookingData }: { open: boolea
   }, [selectedAddOns, currency, numGuests])
 
   const grandTotal = useMemo(() => {
-    return (basePrice * nightsCount * numGuests) + addOnTotal
-  }, [basePrice, nightsCount, numGuests, addOnTotal])
+    const accommodationTotal = bookingData?.skipOccupancy ? basePrice * nightsCount : basePrice * nightsCount * numGuests
+    return accommodationTotal + addOnTotal
+  }, [basePrice, nightsCount, numGuests, addOnTotal, bookingData?.skipOccupancy])
 
   const handleAddOnToggle = (addOnId: string) => {
     setSelectedAddOns((prev) => (prev.includes(addOnId) ? prev.filter((id) => id !== addOnId) : [...prev, addOnId]))
@@ -362,24 +364,32 @@ export function BookingModal({ open, onOpenChange, bookingData }: { open: boolea
                     </div>
                   </motion.div>
 
-                   <motion.div initial={{ opacity: 0, x: 20 }} animate={{ opacity: 1, x: 0 }} transition={{ delay: 0.8 }} className="bg-gradient-to-br from-primary to-primary/90 rounded-xl shadow-lg p-5 md:p-6 text-white flex flex-col">
-                      <h3 className="text-lg md:text-xl font-serif font-bold mb-3 md:mb-4">Booking Summary</h3>
-                      <div className="space-y-2 md:space-y-3 text-xs md:text-sm flex-1">
-                        <div className="flex justify-between items-center">
-                          <span className="text-white/90">Accommodation ({nightsCount} {nightsCount === 1 ? 'night' : 'nights'} × {numGuests} {numGuests === 1 ? 'guest' : 'guests'})</span>
-                          <span className="font-bold text-white">{(basePrice * nightsCount * numGuests).toLocaleString()}</span>
-                        </div>
-                        <div className="flex justify-between items-center">
-                          <span className="text-white/90">Add-ons</span>
-                          <span className="font-bold text-white">{addOnTotal.toLocaleString()}</span>
-                        </div>
-                        <div className="border-t border-white/30 my-2 md:my-3"></div>
-                        <div className="flex justify-between items-center text-base md:text-lg">
-                          <span className="font-bold">Total</span>
-                          <span className="font-bold text-secondary">{currency} {grandTotal.toLocaleString()}</span>
-                        </div>
-                      </div>
-                    </motion.div>
+                    <motion.div initial={{ opacity: 0, x: 20 }} animate={{ opacity: 1, x: 0 }} transition={{ delay: 0.8 }} className="bg-gradient-to-br from-primary to-primary/90 rounded-xl shadow-lg p-5 md:p-6 text-white flex flex-col">
+                       <h3 className="text-lg md:text-xl font-serif font-bold mb-3 md:mb-4">Booking Summary</h3>
+                       <div className="space-y-2 md:space-y-3 text-xs md:text-sm flex-1">
+                         <div className="flex justify-between items-center">
+                           <span className="text-white/90">
+                             {bookingData?.skipOccupancy ? (
+                               <>Accommodation ({nightsCount} {nightsCount === 1 ? 'night' : 'nights'})</>
+                             ) : (
+                               <>Accommodation ({nightsCount} {nightsCount === 1 ? 'night' : 'nights'} × {numGuests} {numGuests === 1 ? 'guest' : 'guests'})</>
+                             )}
+                           </span>
+                           <span className="font-bold text-white">
+                             {(bookingData?.skipOccupancy ? basePrice * nightsCount : basePrice * nightsCount * numGuests).toLocaleString()}
+                           </span>
+                         </div>
+                         <div className="flex justify-between items-center">
+                           <span className="text-white/90">Add-ons</span>
+                           <span className="font-bold text-white">{addOnTotal.toLocaleString()}</span>
+                         </div>
+                         <div className="border-t border-white/30 my-2 md:my-3"></div>
+                         <div className="flex justify-between items-center text-base md:text-lg">
+                           <span className="font-bold">Total</span>
+                           <span className="font-bold text-secondary">{currency} {grandTotal.toLocaleString()}</span>
+                         </div>
+                       </div>
+                     </motion.div>
                 </div>
 
                 <motion.div initial={{ opacity: 0, x: 30 }} animate={{ opacity: 1, x: 0 }} exit={{ opacity: 0, x: -30 }} transition={{ type: 'spring', stiffness: 200, damping: 25 }} className="bg-white rounded-xl shadow-lg border border-border p-4 md:p-6">
@@ -417,11 +427,14 @@ export function BookingModal({ open, onOpenChange, bookingData }: { open: boolea
                     <p className="text-xs md:text-sm font-semibold text-foreground/70">Total Amount</p>
                     <motion.p key={grandTotal} initial={{ scale: 0.9, opacity: 0 }} animate={{ scale: 1, opacity: 1 }} className="text-3xl md:text-5xl font-bold text-primary">
                       {currency} {grandTotal.toLocaleString()}
-                    </motion.p>
-                     <p className="text-xs md:text-sm text-foreground/60">
-                        Base: {currency} {basePrice.toLocaleString()} x {nightsCount} nights x {numGuests} {numGuests === 1 ? 'guest' : 'guests'}
-                        {addOnTotal > 0 && ` + Add-ons: ${currency} ${addOnTotal.toLocaleString()}`}
-                     </p>
+                     </motion.p>
+                      <p className="text-xs md:text-sm text-foreground/60">
+                        {bookingData?.skipOccupancy ? (
+                          <>Base: {currency} {basePrice.toLocaleString()} x {nightsCount} nights{addOnTotal > 0 && ` + Add-ons: ${currency} ${addOnTotal.toLocaleString()}`}</>
+                        ) : (
+                          <>Base: {currency} {basePrice.toLocaleString()} x {nightsCount} nights x {numGuests} {numGuests === 1 ? 'guest' : 'guests'}{addOnTotal > 0 && ` + Add-ons: ${currency} ${addOnTotal.toLocaleString()}`}</>
+                        )}
+                      </p>
                   </div>
                   <Button onClick={handleSubmit} size="lg" disabled={submitting} className="bg-secondary text-white hover:bg-secondary/90 font-bold uppercase tracking-wide px-8 md:px-10 py-5 md:py-6 text-base md:text-lg shadow-lg hover:shadow-xl transition-all">
                     {submitting ? (

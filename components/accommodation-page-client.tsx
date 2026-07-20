@@ -18,7 +18,7 @@ type BookingInit = {
 
 export function AccommodationPageClient() {
   const [bookingOpen, setBookingOpen] = useState(false)
-  const [bookingData, setBookingData] = useState<{ accommodation: string; rateType: string; ratePlan: string; basePrice: number; currency: 'KSH' | 'USD' } | null>(null)
+  const [bookingData, setBookingData] = useState<{ accommodation: string; rateType: string; ratePlan: string; basePrice: number; currency: 'KSH' | 'USD'; image?: string; skipOccupancy?: boolean } | null>(null)
   const [pendingBooking, setPendingBooking] = useState<BookingInit | null>(null)
 
   const openBooking = (data: BookingInit) => {
@@ -33,6 +33,7 @@ export function AccommodationPageClient() {
         basePrice: cleanPrice,
         currency: currency as 'KSH' | 'USD',
         image: data.image,
+        skipOccupancy: data.skipOccupancy,
       })
       setBookingOpen(true)
     } else {
@@ -52,6 +53,7 @@ export function AccommodationPageClient() {
       basePrice: cleanPrice,
       currency: currency as 'KSH' | 'USD',
       image: pendingBooking.image,
+      skipOccupancy: pendingBooking.skipOccupancy,
     })
     setPendingBooking(null)
     setBookingOpen(true)
