@@ -1,7 +1,7 @@
 'use client'
 
-import { useRef } from 'react'
-import { motion, useInView } from 'framer-motion'
+import { useRef, useState, useEffect } from 'react'
+import { motion, useInView, AnimatePresence } from 'framer-motion'
 import Image from 'next/image'
 
 const values = [
@@ -11,9 +11,26 @@ const values = [
   { title: 'Excellence', description: 'Impeccable service standards and attention to detail' },
 ]
 
+const aboutImages = [
+  { src: '/accomodation.jpeg', alt: 'Accommodation' },
+  { src: '/accommodation-1.jpeg', alt: 'Accommodation View 1' },
+  { src: '/accommodation-2.jpeg', alt: 'Accommodation View 2' },
+  { src: '/accommodation-3.jpeg', alt: 'Accommodation View 3' },
+]
+
 export function AboutSection() {
   const ref = useRef(null)
   const isInView = useInView(ref, { once: true, margin: '-100px' })
+  const [current, setCurrent] = useState(0)
+  const [direction, setDirection] = useState(0)
+
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setDirection(1)
+      setCurrent((prev) => (prev + 1) % aboutImages.length)
+    }, 4000)
+    return () => clearInterval(interval)
+  }, [])
 
   return (
     <section id="about" ref={ref} className="py-8 md:py-16 bg-background">
@@ -33,7 +50,7 @@ export function AboutSection() {
 
         {/* Main content grid */}
         <div className="grid lg:grid-cols-2 gap-12 md:gap-16 items-center mb-8 md:mb-12">
-          {/* Image */}
+          {/* Image Slider */}
           <motion.div
             initial={{ opacity: 0, x: -40 }}
             animate={isInView ? { opacity: 1, x: 0 } : { opacity: 0, x: -40 }}
@@ -41,13 +58,25 @@ export function AboutSection() {
             className="relative h-96 md:h-[500px]"
           >
             <div className="relative h-full overflow-hidden rounded-lg">
-              <Image
-                src="/accomodation.jpeg"
-                alt="Accommodation"
-                fill
-                className="object-cover"
-                quality={85}
-              />
+              <AnimatePresence mode="wait" custom={direction}>
+                <motion.div
+                  key={current}
+                  custom={direction}
+                  initial={{ x: direction > 0 ? '100%' : '-100%', opacity: 0 }}
+                  animate={{ x: 0, opacity: 1 }}
+                  exit={{ x: direction > 0 ? '-100%' : '100%', opacity: 0 }}
+                  transition={{ duration: 0.5, ease: 'easeInOut' }}
+                  className="absolute inset-0"
+                >
+                  <Image
+                    src={aboutImages[current].src}
+                    alt={aboutImages[current].alt}
+                    fill
+                    className="object-cover"
+                    quality={85}
+                  />
+                </motion.div>
+              </AnimatePresence>
             </div>
           </motion.div>
 

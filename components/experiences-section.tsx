@@ -61,14 +61,14 @@ export function ExperiencesSection() {
     {
       title: 'Samburu Cultural Cuisine',
       description: 'Experience the rich tastes of Samburu and Kenyan heritage through carefully prepared meals, cultural storytelling, and memorable dining in the heart of the wilderness.',
-      images: ['/night-2.jpeg', '/bonfire-2.jpeg', '/night-5.jpeg'],
+      images: ['/night.jpeg', '/dinner-1.jpeg', '/dinner-2.jpeg','/bonfire-2.jpeg'],
       highlights: ['Bush dinners', 'Wine tastings', 'Chef collaborations'],
     },
     {
       title: 'Sunrise & Sunset Experiences',
       description: 'Witness breathtaking African sunrises and magical sunset moments around bonfires, creating unforgettable memories in the wild.',
       highlights: ['Golden sunrise views', 'Bonfire gatherings', 'Stargazing sessions'],
-      images: ['/night-2.jpeg', '/meets-4.jpeg','/swimming.jpeg', '/swimmingpool-2.jpeg'],
+      images: ['/accommodation-3.jpeg','/dinner-2.jpeg','/night-2.jpeg','/shower.jpeg', '/swimmingpool-2.jpeg'],
     },
   ]
 
