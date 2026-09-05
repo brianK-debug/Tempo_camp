@@ -1,7 +1,8 @@
 'use client'
 
+import { useState, useEffect } from 'react'
 import Image from 'next/image'
-import { motion } from 'framer-motion'
+import { motion, AnimatePresence } from 'framer-motion'
 import { Check } from 'lucide-react'
 
 type OnBookNow = (data: { accommodation: string; rateType: string; ratePlan: string; singlePrice: string; doublePrice?: string; image?: string; skipOccupancy?: boolean }) => void
@@ -54,7 +55,7 @@ export function AccommodationContent({ onBookNow }: { onBookNow?: OnBookNow } = 
       title: 'A Cottage',
       residentRates: residentCottageRates,
       nonResidentRates: nonResidentCottageRates,
-      src: '/cottage.png',
+      src: '/accommodation-1.jpeg',
       alt: 'Cottage Accommodation',
     },
     {
@@ -74,16 +75,44 @@ export function AccommodationContent({ onBookNow }: { onBookNow?: OnBookNow } = 
     },
   ]
 
+  const heroImages = [
+    '/tent-a.jpeg',
+    '/tent-b.jpeg',
+    '/accommodation-1.jpeg',
+    '/accommodation-2.jpeg',
+    '/accommodation-3.jpeg',
+  ]
+
+  const [currentSlide, setCurrentSlide] = useState(0)
+
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setCurrentSlide((prev) => (prev + 1) % heroImages.length)
+    }, 4000)
+    return () => clearInterval(interval)
+  }, [])
+
   return (
     <>
       <section className="relative h-[60vh] md:h-screen overflow-hidden pt-28 md:pt-40">
-        <Image
-          src="/cottage.png"
-          alt="Accommodation"
-          fill
-          className="object-cover"
-          quality={90}
-        />
+        <AnimatePresence mode="wait">
+          <motion.div
+            key={currentSlide}
+            initial={{ opacity: 0, scale: 1.05 }}
+            animate={{ opacity: 1, scale: 1 }}
+            exit={{ opacity: 0, scale: 0.95 }}
+            transition={{ duration: 0.7, ease: 'easeInOut' }}
+            className="absolute inset-0"
+          >
+            <Image
+              src={heroImages[currentSlide]}
+              alt={`Accommodation ${currentSlide + 1}`}
+              fill
+              className="object-cover"
+              quality={90}
+            />
+          </motion.div>
+        </AnimatePresence>
         <div className="absolute inset-0 bg-black/40" />
         <div className="relative h-full flex items-center justify-center px-6">
           <div className="text-center text-white max-w-3xl">
